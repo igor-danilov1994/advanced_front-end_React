@@ -1,10 +1,12 @@
-import { Suspense, useContext } from "react";
+import { Suspense } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import { MainPageAsync } from "./pages/MainPage/MainPage.async";
-import { AboutAsync } from "./pages/AboutPage/About.async";
+
 import "./styles/index.scss";
-import { useTheme } from "./theme/useTheme";
-import { classNames } from "./helpers/classNames/classNames";
+import { useTheme } from "app/provider/ThemeProvider";
+
+import { MainPageAsync } from "pages/MainPage";
+import { AboutAsync } from "pages/AboutPage";
+import { classNames } from "shared/lib/classNames/classNames";
 
 export const App = () => {
   const { theme, toggleTheme } = useTheme();
@@ -22,7 +24,6 @@ export const App = () => {
           <Route path="/" element={<MainPageAsync />} />
         </Routes>
       </Suspense>
-      {/*<Counter />*/}
     </div>
   );
 };
