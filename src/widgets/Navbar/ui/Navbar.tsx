@@ -16,10 +16,10 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
     <div className={classNames(cls.Navbar, {}, [className])}>
       <div className={cls.links}>
         <AppLink theme={AppLinkTheme.SECONDARY} className={cls.main} to={"/"}>
-          Главная
+          {t("Главная страница")}
         </AppLink>
         <AppLink theme={AppLinkTheme.SECONDARY} to={"/about"}>
-          О нас
+          {t("О нас")}
         </AppLink>
       </div>
     </div>
