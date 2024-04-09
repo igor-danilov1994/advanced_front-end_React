@@ -1,11 +1,11 @@
-import { ButtonHTMLAttributes, FC, memo } from "react";
-import { useTranslation } from "react-i18next";
+import { ButtonHTMLAttributes, FC, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 
-import { classNames } from "shared/lib/classNames/classNames";
-import cls from "./Button.module.scss";
+import { classNames } from 'shared/lib/classNames/classNames';
+import cls from './Button.module.scss';
 
 export enum ThemeButton {
-  CLEAR = "clear",
+  CLEAR = 'clear',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,16 +14,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button: FC<ButtonProps> = memo((props) => {
-  const { t } = useTranslation();
-  const { className, onClick, theme, children, ...otherProps } = props;
+    const { t } = useTranslation();
+    const {
+        className, onClick, theme, children, ...otherProps
+    } = props;
 
-  return (
-    <button
-      className={classNames(cls.Button, {}, [className, cls[theme]])}
-      onClick={onClick}
-      {...otherProps}
-    >
-      {children}
-    </button>
-  );
+    return (
+        <button
+            className={classNames(cls.Button, {}, [className, cls[theme]])}
+            onClick={onClick}
+            {...otherProps}
+        >
+            {children}
+        </button>
+    );
 });

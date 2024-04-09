@@ -1,3 +1,3 @@
 export const someFn = () => {
-    console.log(1413)
-}
+    console.log(1413);
+};
