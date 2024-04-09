@@ -1,15 +1,13 @@
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { classNames } from 'shared/lib/classNames/classNames';
 import { Button, ThemeButton } from 'shared/ui/Button/Button';
-import cls from './LangSwitcher.module.scss';
 
 interface LangSwitcherProps {
   className?: string;
 }
 
-export const LangSwitcher: FC<LangSwitcherProps> = memo(({ className }) => {
+export const LangSwitcher: FC<LangSwitcherProps> = memo(() => {
     const { t, i18n } = useTranslation();
     const lung = i18n.language === 'ru' ? 'en' : 'ru';
 
@@ -18,11 +16,7 @@ export const LangSwitcher: FC<LangSwitcherProps> = memo(({ className }) => {
     };
 
     return (
-        <Button
-            className={classNames(cls.LangSwitcher, {}, [className])}
-            onClick={toggle}
-            theme={ThemeButton.CLEAR}
-        >
+        <Button onClick={toggle} theme={ThemeButton.CLEAR}>
             {t('Язык')}
         </Button>
     );
