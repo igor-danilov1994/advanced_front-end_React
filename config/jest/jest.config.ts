@@ -3,14 +3,22 @@
  * https://jestjs.io/docs/configuration
  */
 
+import path from 'path';
+
 export default {
     clearMocks: true,
     testEnvironment: 'jsdom',
     coveragePathIgnorePatterns: ['/node_modules/'],
-    moduleDirectories: ['node_modules'],
+    moduleDirectories: ['node_modules', 'src'],
     moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
+    testMatch: ['<rootDir>src/**/*(*.)@(spec|test).[tj]s?(x)'],
+    modulePaths: ['node_modules', '<rootDir>/src'],
     rootDir: '../../',
-    testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[tj]s?(x)'],
+    setupFilesAfterEnv: ['<rootDir>config/jest/setupTest.ts'],
+    moduleNameMapper: {
+        '\\.s?css$': 'identity-obj-proxy',
+        '\\.svg': path.resolve(__dirname, './jestEmptyComponent.tsx'),
+    },
 
     // All imported modules in your tests should be mocked automatically
     // automock: false,
@@ -21,9 +29,9 @@ export default {
     // The directory where Jest should store its cached dependency information
     // cacheDirectory: "/private/var/folders/2_/t2xgdshs3hv05z2zsznh204c0000gn/T/jest_dx",
 
-    // Automatically clear mock calls, instances and results before every test
+    // Automatically clear mock calls, instances and results before every tests
 
-    // Indicates whether the coverage information should be collected while executing the test
+    // Indicates whether the coverage information should be collected while executing the tests
     // collectCoverage: false,
 
     // An array of glob patterns indicating a set of files for which coverage information should be collected
@@ -57,13 +65,13 @@ export default {
     // Force coverage collection from ignored files using an array of glob patterns
     // forceCoverageMatch: [],
 
-    // A path to a module which exports an async function that is triggered once before all test suites
+    // A path to a module which exports an async function that is triggered once before all tests suites
     // globalSetup: undefined,
 
-    // A path to a module which exports an async function that is triggered once after all test suites
+    // A path to a module which exports an async function that is triggered once after all tests suites
     // globalTeardown: undefined,
 
-    // A set of global variables that need to be available in all test environments
+    // A set of global variables that need to be available in all tests environments
     // globals: {},
 
     // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
@@ -77,7 +85,7 @@ export default {
     // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
     // modulePathIgnorePatterns: [],
 
-    // Activates notifications for test results
+    // Activates notifications for tests results
     // notify: false,
 
     // An enum that specifies notification mode. Requires { notify: true }
@@ -92,16 +100,16 @@ export default {
     // Use this configuration option to add custom reporters to Jest
     // reporters: undefined,
 
-    // Automatically reset mock state before every test
+    // Automatically reset mock state before every tests
     // resetMocks: false,
 
-    // Reset the module registry before running each individual test
+    // Reset the module registry before running each individual tests
     // resetModules: false,
 
     // A path to a custom resolver
     // resolver: undefined,
 
-    // Automatically restore mock state and implementation before every test
+    // Automatically restore mock state and implementation before every tests
     // restoreMocks: false,
 
     // The root directory that Jest should scan for tests and modules within
@@ -111,43 +119,43 @@ export default {
     //   "<rootDir>"
     // ],
 
-    // Allows you to use a custom runner instead of Jest's default test runner
+    // Allows you to use a custom runner instead of Jest's default tests runner
     // runner: "jest-runner",
 
-    // The paths to modules that run some code to configure or set up the testing environment before each test
+    // The paths to modules that run some code to configure or set up the testing environment before each tests
     // setupFiles: [],
 
-    // A list of paths to modules that run some code to configure or set up the testing framework before each test
+    // A list of paths to modules that run some code to configure or set up the testing framework before each tests
     // setupFilesAfterEnv: [],
 
-    // The number of seconds after which a test is considered as slow and reported as such in the results.
+    // The number of seconds after which a tests is considered as slow and reported as such in the results.
     // slowTestThreshold: 5,
 
     // A list of paths to snapshot serializer modules Jest should use for snapshot testing
     // snapshotSerializers: [],
 
-    // The test environment that will be used for testing
+    // The tests environment that will be used for testing
 
     // Options that will be passed to the testEnvironment
     // testEnvironmentOptions: {},
 
-    // Adds a location field to test results
+    // Adds a location field to tests results
     // testLocationInResults: false,
 
-    // The glob patterns Jest uses to detect test files
+    // The glob patterns Jest uses to detect tests files
 
-    // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
+    // An array of regexp pattern strings that are matched against all tests paths, matched tests are skipped
     // testPathIgnorePatterns: [
     //   "/node_modules/"
     // ],
 
-    // The regexp pattern or array of patterns that Jest uses to detect test files
+    // The regexp pattern or array of patterns that Jest uses to detect tests files
     // testRegex: [],
 
     // This option allows the use of a custom results processor
     // testResultsProcessor: undefined,
 
-    // This option allows use of a custom test runner
+    // This option allows use of a custom tests runner
     // testRunner: "jest-circus/runner",
 
     // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
@@ -168,7 +176,7 @@ export default {
     // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
     // unmockedModulePathPatterns: undefined,
 
-    // Indicates whether each individual test should be reported during the run
+    // Indicates whether each individual tests should be reported during the run
     // verbose: undefined,
 
     // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
