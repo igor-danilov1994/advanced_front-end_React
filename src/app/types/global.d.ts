@@ -4,6 +4,7 @@ declare module '*.scss' {
   }
 
   const classNames: IClassNames;
+  // @ts-ignore
   export = classNames;
 }
 
@@ -18,3 +19,8 @@ declare module '*.svg' {
 }
 
 declare const __IS_DEV__: boolean;
+
+declare module '*.scss' {
+  const content: Record<string, string>;
+  export default content;
+}
