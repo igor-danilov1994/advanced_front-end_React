@@ -7,13 +7,14 @@ import { AppRouter } from 'app/provider/router';
 import { Navbar } from 'widgets/Navbar';
 import { Sidebar } from 'widgets/Sidebar';
 import './styles/index.scss';
+import { Loader } from 'widgets/Loader/ui/Loader';
 
 export const App = () => {
     const { theme, toggleTheme } = useTheme();
 
     return (
         <div className={classNames('app', {}, [theme])}>
-            <Suspense fallback="">
+            <Suspense fallback={<Loader />}>
                 <Navbar />
                 <div className="content-page">
                     <Sidebar />
