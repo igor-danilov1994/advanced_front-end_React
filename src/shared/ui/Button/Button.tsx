@@ -5,6 +5,7 @@ import cls from './Button.module.scss';
 
 export enum ThemeButton {
   CLEAR = 'clear',
+  OUTLINE = 'outline',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -14,7 +15,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button: FC<ButtonProps> = memo((props) => {
     const {
-        className, onClick, theme, children, ...otherProps
+    // eslint-disable-next-line react/prop-types
+        className,
+        onClick,
+        theme,
+        children,
+        ...otherProps
     } = props;
 
     return (

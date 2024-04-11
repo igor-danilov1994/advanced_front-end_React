@@ -2,11 +2,12 @@ import { RouteProps } from 'react-router-dom';
 
 import { AboutAsync } from 'pages/AboutPage';
 import { MainPage } from 'pages/MainPage';
+import { NotFoundPage } from 'pages/NotFoundPage';
 
 export enum AppRoutes {
-  MAIN = 'main',
-  ABOUT = 'about',
-  NOT_FOUND = 'not_found',
+    MAIN = 'main',
+    ABOUT = 'about',
+    NOT_FOUND = 'not_found',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -26,6 +27,6 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
     },
     [AppRoutes.NOT_FOUND]: {
         path: RoutePath.not_found,
-        element: <AboutAsync />,
+        element: <NotFoundPage />,
     },
 };

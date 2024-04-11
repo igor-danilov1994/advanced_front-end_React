@@ -1,14 +1,14 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode, Suspense } from 'react';
 
 interface ErrorBoundaryProps {
-  children: ReactNode;
+  children: any;
 }
 
 interface ErrorBoundaryState {
   hasError: boolean;
 }
 
-export class ErrorBoundary extends Component<
+export class ErrorBoundary extends React.Component<
   ErrorBoundaryProps,
   ErrorBoundaryState
 > {
@@ -28,11 +28,20 @@ export class ErrorBoundary extends Component<
     }
 
     render() {
-        if (this.state.hasError) {
+        const { hasError } = this.state;
+        const { children } = this.props;
+
+        if (hasError) {
             // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
+            // eslint-disable-next-line i18next/no-literal-string
+            return (
+                <Suspense fallback="">
+                    {/* eslint-disable-next-line i18next/no-literal-string */}
+                    <div className="div">Global error</div>
+                </Suspense>
+            );
         }
 
-        return this.props.children;
+        return children;
     }
 }
