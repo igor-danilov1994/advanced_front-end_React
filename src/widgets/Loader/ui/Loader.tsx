@@ -1,15 +1,15 @@
 import { FC, memo } from 'react';
 
 import { classNames } from 'shared/lib/classNames/classNames';
-import cls from './Loader.module.scss';
+import './Loader.scss';
 
 interface LoaderProps {
   className?: string;
 }
 
 export const Loader: FC<LoaderProps> = memo(({ className }) => (
-    <div className={classNames(cls.Loader, {}, [className])}>
-        <div className={cls.lds_spinner}>
+    <div className={classNames('Loader', {}, [className])}>
+        <div className="lds-spinner">
             <div />
             <div />
             <div />
