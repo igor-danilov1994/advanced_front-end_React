@@ -29,4 +29,3 @@ jobs:
         if: always()
       - name: unit testing
         run: npm run test:unit
-        if: always()
