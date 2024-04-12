@@ -24,6 +24,9 @@ jobs:
       - name: build storybook
         run: npm run storybook:build
         if: always()
+      - name: screenshots testing
+        run: npm run test:ui:ci
+        if: always()
       - name: linting typescript
         run: npm run lint:ts
         if: always()
