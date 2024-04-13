@@ -6,10 +6,6 @@
   transition: width 0.3s;
 }
 
-.collapsed {
-  width: 80px;
-}
-
 .switchers {
   display: flex;
   justify-content: center;
@@ -20,4 +16,52 @@
 
 .lang {
   margin-left: 20px;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 30px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+
+  .icon {
+    fill: var(--inverted-primary-color);
+    margin-right: 10px;
+  }
+}
+
+.collapsed {
+  width: 80px;
+
+  &_btn {
+    position: absolute;
+    right: -30px;
+    bottom: 35px;
+  }
+
+  .switchers {
+    flex-direction: column;
+
+    .lang {
+      margin-left: 0;
+    }
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .link {
+    opacity: 0;
+    transition: 0.2s opacity;
+    width: 0;
+    height: 0;
+  }
 }
