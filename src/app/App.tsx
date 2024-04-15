@@ -3,7 +3,8 @@ import { Suspense } from 'react';
 import { useTheme } from 'app/provider/ThemeProvider';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Navbar } from 'widgets/Navbar';
-import './styles/index.scss';
+import { Sidebar } from 'widgets/Sidebar';
+import { AppRouter } from 'app/provider/router';
 
 export const App = () => {
     const { theme } = useTheme();
@@ -12,9 +13,10 @@ export const App = () => {
         <div className={classNames('app', {}, [theme])}>
             <Suspense fallback="">
                 <Navbar />
+
                 <div className="content-page">
-                    {/* <Sidebar /> */}
-                    {/* <AppRouter /> */}
+                    <Sidebar />
+                    <AppRouter />
                 </div>
             </Suspense>
         </div>
