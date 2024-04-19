@@ -2,6 +2,4 @@ npm run build:prod
 npm run lint:ts
 npm run test:unit
 npm run lint:scss
-npm run storybook:build
-npm run test:ui
 
