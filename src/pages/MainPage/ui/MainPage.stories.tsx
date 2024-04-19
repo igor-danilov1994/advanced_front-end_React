@@ -1,6 +1,5 @@
 import React from 'react';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator';
 import { Themes } from 'app/provider/ThemeProvider';
 import MainPage from './MainPage';
@@ -13,7 +12,10 @@ export default {
     },
 } as ComponentMeta<typeof MainPage>;
 
-const Template: ComponentStory<typeof MainPage> = () => <MainPage />;
+const Template: ComponentStory<typeof MainPage> = (args) => (
+    // @ts-ignore
+    <MainPage {...args} />
+);
 
 export const Normal = Template.bind({});
 Normal.args = {};
