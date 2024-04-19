@@ -9,5 +9,6 @@
   "Увеличить": "Increment",
   "Уменьшить": "Decrement",
   "Логин": "Login",
-  "Пароль": "Password"
+  "Пароль": "Password",
+  "Выйти": "Logout"
 }

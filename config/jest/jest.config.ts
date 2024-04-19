@@ -22,7 +22,7 @@ export default {
         '\\.s?css$': 'identity-obj-proxy',
         '\\.svg': path.resolve(__dirname, './jestEmptyComponent.tsx'),
     },
-
+    transformIgnorePatterns: ['node_modules/(?!(axios)/)'],
     // All imported modules in your tests should be mocked automatically
     // automock: false,
 

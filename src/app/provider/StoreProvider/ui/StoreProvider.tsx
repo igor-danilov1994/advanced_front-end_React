@@ -12,6 +12,5 @@ export const StoreProvider: FC<StoreProviderProps> = (props) => {
     const { children, initialState } = props;
     const store = createReduxStore(initialState as StateSchema);
 
-    // @ts-ignore
     return <Provider store={store}>{children}</Provider>;
 };
