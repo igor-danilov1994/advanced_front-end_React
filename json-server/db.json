@@ -22,7 +22,14 @@
     {
       "id": "1",
       "username": "admin",
-      "password": "123"
+      "password": "123",
+      "first": "Igor",
+      "lastname": "Danilov",
+      "age": "30",
+      "country": "USA",
+      "city": "California",
+      "currency": "USD",
+      "avatar": "https://media.licdn.com/dms/image/D4E35AQGaZy-OzHGvuw/profile-framedphoto-shrink_200_200/0/1695894749917?e=1714460400&v=beta&t=Es3rDSoZinJZxqHhC6M92ZyxttWlL_YzErDlIw5Vz4I"
     }
   ],
   "profile": {

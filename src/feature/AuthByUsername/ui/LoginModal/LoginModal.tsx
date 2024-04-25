@@ -23,7 +23,7 @@ export const LoginModal: FC<LoginModalProps> = memo((props) => {
             onClose={onClose}
         >
             <Suspense fallback={<Loader />}>
-                <LoginFormAsync />
+                <LoginFormAsync onClose={onClose} />
             </Suspense>
         </Modal>
     );

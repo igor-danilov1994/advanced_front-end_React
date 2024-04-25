@@ -1,5 +1,5 @@
 import {
-    FC, memo, useCallback, useEffect, useState,
+    FC, memo, useCallback, useState,
 } from 'react';
 
 import { classNames } from 'shared/lib/classNames/classNames';
@@ -32,10 +32,6 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
     const logoutHandler = () => {
         dispatch(userActions.logout());
     };
-
-    useEffect(() => {
-        if (user?.id) setOpen(false);
-    }, [user]);
 
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>

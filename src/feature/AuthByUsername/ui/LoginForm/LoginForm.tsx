@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Button } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { Text, ThemeText } from 'shared/ui/Text /Text';
 import {
@@ -16,6 +16,7 @@ import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { getUsername } from '../../model/selectors/getUsername/getUsername';
 import { getError } from '../../model/selectors/getError/getError';
 import { getPassword } from '../../model/selectors/getPassword/getPassword';
@@ -24,19 +25,22 @@ import cls from './LoginForm.module.scss';
 
 export interface LoginFormProps {
   className?: string;
+  onClose: () => void;
 }
 
 const reducers: ReducersList = {
     login: loginReducer,
 };
 
-const LoginForm: FC<LoginFormProps> = memo(({ className }) => {
+const LoginForm: FC<LoginFormProps> = memo((props) => {
     const { t } = useTranslation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const username = useSelector(getUsername);
     const password = useSelector(getPassword);
     const error = useSelector(getError);
     const isLoading = useSelector(getLoading);
+
+    const { className, onClose } = props;
 
     const onChangeLogin = useCallback(
         (value: string) => {
@@ -52,9 +56,11 @@ const LoginForm: FC<LoginFormProps> = memo(({ className }) => {
         [dispatch],
     );
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUsername({ username, password }));
-    }, [username, password, dispatch]);
+    const onLoginClick = useCallback(async () => {
+        const res = await dispatch(loginByUsername({ username, password }));
+
+        if (res.meta.requestStatus === 'fulfilled') onClose();
+    }, [username, password, dispatch, onClose]);
 
     return (
         <DynamicModuleLoader reducers={reducers}>

@@ -1,6 +1,5 @@
 import {
     FC,
-    memo,
     MouseEvent,
     useCallback,
     useEffect,
@@ -18,7 +17,7 @@ interface ModalProps {
   onClose?: () => void;
 }
 
-export const Modal: FC<ModalProps> = memo((props) => {
+export const Modal: FC<ModalProps> = (props) => {
     const [isClosing, setClose] = useState(false);
     const timeRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -75,4 +74,4 @@ export const Modal: FC<ModalProps> = memo((props) => {
             </div>
         </Portal>
     );
-});
+};

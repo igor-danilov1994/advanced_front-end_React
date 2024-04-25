@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useStore } from 'react-redux';
 import { ReduxStoreWithManager } from 'app/provider/StoreProvider';
 import { StateSchemaKey } from 'app/provider/StoreProvider/config/StateSchema';
@@ -15,26 +15,24 @@ interface DynamicModuleLoaderProps {
   removedAfterUnmount?: boolean;
 }
 
-export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = memo(
-    (props) => {
-        const { children, reducers, removedAfterUnmount } = props;
+export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
+    const { children, reducers, removedAfterUnmount } = props;
 
-        const store = useStore() as ReduxStoreWithManager;
+    const store = useStore() as ReduxStoreWithManager;
 
-        useEffect(() => {
-            Object.entries(reducers).forEach(
-                ([reducerName, reducer]: ReducerListEntry) => {
-                    store.reducerManager.add(reducerName, reducer);
-                },
-            );
+    useEffect(() => {
+        Object.entries(reducers).forEach(
+            ([reducerName, reducer]: ReducerListEntry) => {
+                store.reducerManager.add(reducerName, reducer);
+            },
+        );
 
-            return () => {
-                Object.entries(reducers).forEach(([reducerName]: ReducerListEntry) => {
-                    if (removedAfterUnmount) store.reducerManager.remove(reducerName);
-                });
-            };
-        }, [store.reducerManager, reducers, removedAfterUnmount]);
+        return () => {
+            Object.entries(reducers).forEach(([reducerName]: ReducerListEntry) => {
+                if (removedAfterUnmount) store.reducerManager.remove(reducerName);
+            });
+        };
+    }, [store.reducerManager, reducers, removedAfterUnmount]);
 
-        return <div>{children}</div>;
-    },
-);
+    return <div>{children}</div>;
+};
