@@ -35,15 +35,17 @@ module.exports = {
         'react/prop-types': 'off',
         'no-underscore-dangle': 'off',
         'i18next/no-literal-string': 'off',
-        'max-len': ['error', { ignoreComments: true, code: 120 }],
+        'max-len': ['error', { ignoreComments: true, code: 130 }],
         'jsx-a11y/no-static-element-interactions': 'off',
         'jsx-a11y/click-events-have-key-events': 'off',
         'no-param-reassign': 'off',
+        'no-undef': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
     },
     globals: {
         __IS_DEV__: true,
+        __API__: true,
     },
     overrides: [
         {

@@ -10,5 +10,8 @@
   "Уменьшить": "Decrement",
   "Логин": "Login",
   "Пароль": "Password",
-  "Выйти": "Logout"
+  "Выйти": "Logout",
+  "Ваше имя": "Your firstname",
+  "Ваша фамилия": "Your name",
+  "Профиль": "Profile"
 }

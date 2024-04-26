@@ -8,6 +8,8 @@
     "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "strict": true,
+    "useUnknownInCatchVariables": false,
     "paths": {
       "*": [
         "./src/*"

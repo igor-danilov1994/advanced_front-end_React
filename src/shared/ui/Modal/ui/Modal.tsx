@@ -19,7 +19,7 @@ interface ModalProps {
 
 export const Modal: FC<ModalProps> = (props) => {
     const [isClosing, setClose] = useState(false);
-    const timeRef = useRef<ReturnType<typeof setTimeout>>();
+    const timeRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const {
         className, children, isOpen, onClose,
@@ -49,7 +49,7 @@ export const Modal: FC<ModalProps> = (props) => {
             window.addEventListener('keydown', onKeydown);
         }
         return () => {
-            clearTimeout(timeRef.current);
+            if (timeRef.current) clearTimeout(timeRef.current);
             window.removeEventListener('keydown', onKeydown);
         };
     }, [isOpen, onKeydown]);

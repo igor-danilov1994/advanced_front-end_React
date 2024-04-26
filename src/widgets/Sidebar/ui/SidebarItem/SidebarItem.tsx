@@ -14,16 +14,17 @@ interface SidebarItemProps {
 export const SidebarItem: FC<SidebarItemProps> = memo((props) => {
     const { t } = useTranslation();
     const { item, collapsed } = props;
+    const Icon = item?.Icon;
 
     return (
         <AppLink
             className={classNames(cls.item, { [cls.collapsed]: collapsed })}
             theme={AppLinkTheme.SECONDARY}
-            to={item.path}
+            to={item?.path ?? ''}
         >
-            <item.Icon className={cls.icon} />
+            {Icon && <Icon className={cls.icon} />}
             <span className={classNames(cls.main, {}, [cls.link])}>
-                {t(item.text)}
+                {t(item?.text ?? '')}
             </span>
         </AppLink>
     );
