@@ -18,7 +18,7 @@ const Template: ComponentStory<typeof ProfilePage> = (args) => (
 
 export const Normal = Template.bind({});
 Normal.args = {};
-Normal.decorators = [ThemeDecorator(Themes.LIGHT), StoreDecorator({})];
+Normal.decorators = [StoreDecorator({})];
 
 export const Dark = Template.bind({});
 Dark.args = {};

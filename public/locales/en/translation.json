@@ -13,5 +13,11 @@
   "Выйти": "Logout",
   "Ваше имя": "Your firstname",
   "Ваша фамилия": "Your name",
-  "Профиль": "Profile"
+  "Профиль": "Profile",
+  "Сохранить": "Save",
+  "Отменить": "Cancel",
+  "Ваш возраст": "You age",
+  "Ваша валюта": "You currency",
+  "Ваш город": "You city",
+  "Ваш аватар": "You avatar"
 }

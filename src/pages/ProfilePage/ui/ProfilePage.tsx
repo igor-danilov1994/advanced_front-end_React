@@ -1,4 +1,6 @@
-import { FC, memo, useEffect } from 'react';
+import {
+    FC, memo, useCallback, useEffect,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -9,12 +11,15 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     fetchProfileData,
+    profileActions,
     ProfileCard,
     profileReducer,
 } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { getProfile } from 'entities/Profile/model/selectors/getProfile/getProfile';
 
+import { ProfilePageHeader } from 'pages/ProfilePage';
+import { Currency } from 'shared/const/common';
 import cls from './ProfilePage.module.scss';
 
 export interface ProfilePageProps {
@@ -35,10 +40,69 @@ const ProfilePage: FC<ProfilePageProps> = memo((props) => {
         if (!profile) dispatch(fetchProfileData());
     }, [dispatch, profile]);
 
+    const onChangeFirstName = useCallback((first: string) => {
+        dispatch(
+            profileActions.changeProfile({
+                first,
+            }),
+        );
+    }, []);
+
+    const onChangeLastName = useCallback((lastname: string) => {
+        dispatch(
+            profileActions.changeProfile({
+                lastname,
+            }),
+        );
+    }, []);
+
+    const onChangeAvatar = useCallback((avatar: string) => {
+        dispatch(
+            profileActions.changeProfile({
+                avatar,
+            }),
+        );
+    }, []);
+
+    const onChangeAge = useCallback((age: string) => {
+        dispatch(
+            profileActions.changeProfile({
+                age: Number(age),
+            }),
+        );
+    }, []);
+
+    const onChangeCity = useCallback((city: string) => {
+        dispatch(
+            profileActions.changeProfile({
+                city,
+            }),
+        );
+    }, []);
+
+    const onChangCurrency = useCallback((currency: Currency) => {
+        dispatch(
+            profileActions.changeProfile({
+                currency,
+            }),
+        );
+    }, []);
+
     return (
         <DynamicModuleLoader reducers={reducers}>
             <div className={classNames(cls.ProfilePage, {}, [className])}>
-                {profile && <ProfileCard profile={profile} />}
+                <ProfilePageHeader readonly={profile?.readonly} />
+                {profile && (
+                    <ProfileCard
+                        profile={profile}
+                        onChangeFirstName={onChangeFirstName}
+                        onChangeLastName={onChangeLastName}
+                        onChangeAvatar={onChangeAvatar}
+                        onChangeAge={onChangeAge}
+                        onChangeCity={onChangeCity}
+                        onChangCurrency={onChangCurrency}
+                    />
+                )}
             </div>
         </DynamicModuleLoader>
     );

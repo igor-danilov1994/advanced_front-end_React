@@ -5,18 +5,19 @@ import cls from './Input.module.scss';
 
 type HTMLInputElementProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
-  'value' | 'onChange'
+  'value' | 'onChange' | 'readonly'
 >;
 
 interface InputProps extends HTMLInputElementProps {
   className?: string;
   value?: string;
   onChange?: (value: string) => void;
+  readonly?: boolean;
 }
 
 export const Input: FC<InputProps> = memo((props) => {
     const {
-        className, onChange, value, ...otherProps
+        className, onChange, readonly, value, ...otherProps
     } = props;
 
     const onChangeHelper = (value: string) => {
@@ -28,6 +29,7 @@ export const Input: FC<InputProps> = memo((props) => {
             <input
                 value={value}
                 onChange={(e) => onChangeHelper(e.target.value)}
+                readOnly={readonly}
                 {...otherProps}
             />
         </div>
