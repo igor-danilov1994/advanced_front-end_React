@@ -10,6 +10,7 @@ declare module '*.scss' {
 
 declare module '*.png';
 declare module '*.jpg';
+declare module '*.jpeg';
 declare module '*.svg';
 declare module '*.svg' {
   import React from 'react';
@@ -20,6 +21,7 @@ declare module '*.svg' {
 
 declare const __IS_DEV__: boolean;
 declare const __API__: string;
+declare const __PROJECT__: 'storybook' | 'jest' | 'frontend';
 
 declare module '*.scss' {
   const content: Record<string, string>;

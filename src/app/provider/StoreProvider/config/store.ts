@@ -39,7 +39,6 @@ export const createReduxStore = (
 
     // @ts-ignore
     store.reducerManager = reducerManager;
-
     return store;
 };
 

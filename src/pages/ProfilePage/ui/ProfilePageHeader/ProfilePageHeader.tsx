@@ -19,7 +19,7 @@ export const ProfilePageHeader: FC<ProfilePageHeaderProps> = memo((props) => {
     const { className, readonly } = props;
 
     const changeReadonlyState = () => {
-        dispatch(profileActions.changeReadonly());
+        dispatch(profileActions.changeReadonly(!readonly));
     };
 
     const saveProfileData = () => {

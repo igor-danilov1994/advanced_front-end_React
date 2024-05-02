@@ -1,5 +1,5 @@
 import { FC, memo, useMemo } from 'react';
-import { ProfileSchema } from 'entities/Profile';
+import { Profile } from 'entities/Profile';
 import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
@@ -13,7 +13,10 @@ import cls from './ProfileCard.module.scss';
 
 interface ProfileCardProps {
   className?: string;
-  profile: ProfileSchema;
+  profile?: Profile;
+  isLoading?: boolean;
+  readonly?: boolean;
+  error?: string;
   onChangeFirstName?: (name: string) => void;
   onChangeLastName?: (lastName: string) => void;
   onChangeAge?: (age: string) => void;
@@ -26,17 +29,17 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
     const { t } = useTranslation();
     const {
         className,
-        profile,
         onChangeFirstName,
         onChangeLastName,
         onChangeAge,
         onChangeAvatar,
         onChangeCity,
         onChangCurrency,
+        isLoading,
+        error,
+        profile,
+        readonly,
     } = props;
-    const {
-        form, isLoading, error, readonly,
-    } = profile;
 
     const currencyList: Currency[] = useMemo(
         () => [Currency.EUR, Currency.RUB, Currency.USD],
@@ -67,12 +70,16 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
 
     return (
         <div className={classNames(cls.ProfileCard, {}, [className])}>
-            <Avatar src={form?.avatar} size={AvatarSize.M} className={cls.avatar} />
+            <Avatar
+                src={profile?.avatar}
+                size={AvatarSize.M}
+                className={cls.avatar}
+            />
             <div className={cls.data}>
                 <Text className={cls.text} text={t('Ваше имя')} />
                 <Input
                     className={classNames(cls.input, { [cls.readonly]: readonly }, [])}
-                    value={form?.first}
+                    value={profile?.first}
                     placeholder={t('Ваше имя')}
                     readonly={readonly}
                     onChange={onChangeFirstName}
@@ -82,7 +89,7 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
                 <Text className={cls.text} text={t('Ваша фамилия')} />
                 <Input
                     className={classNames(cls.input, { [cls.readonly]: readonly }, [])}
-                    value={form?.lastname}
+                    value={profile?.lastname}
                     placeholder={t('Ваша фамилия')}
                     readonly={readonly}
                     onChange={onChangeLastName}
@@ -92,18 +99,20 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
                 <Text className={cls.text} text={t('Ваш возраст')} />
                 <Input
                     className={classNames(cls.input, { [cls.readonly]: readonly }, [])}
-                    value={`${form?.age}`}
+                    value={`${profile?.age}`}
                     type="number"
                     placeholder={t('Ваш возраст')}
                     readonly={readonly}
                     onChange={onChangeAge}
+                    min={16}
+                    max={100}
                 />
             </div>
             <div className={cls.data}>
                 <Text className={cls.text} text={t('Ваш город')} />
                 <Input
                     className={classNames(cls.input, { [cls.readonly]: readonly }, [])}
-                    value={form?.city}
+                    value={profile?.city}
                     placeholder={t('Ваш город')}
                     readonly={readonly}
                     onChange={onChangeCity}
@@ -113,7 +122,7 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
                 <Text className={cls.text} text={t('Ваш аватар')} />
                 <Input
                     className={classNames(cls.input, { [cls.readonly]: readonly }, [])}
-                    value={form?.avatar}
+                    value={profile?.avatar}
                     placeholder={t('Ваш аватар')}
                     readonly={readonly}
                     onChange={onChangeAvatar}
@@ -123,7 +132,7 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
                 <Text className={cls.text} text={t('Ваша валюта')} />
                 <Select<Currency>
                     optional={currencyList}
-                    currentValue={form?.currency}
+                    currentValue={profile?.currency}
                     onChange={onChangCurrency}
                     readonly={readonly}
                 />

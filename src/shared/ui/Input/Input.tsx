@@ -10,7 +10,7 @@ type HTMLInputElementProps = Omit<
 
 interface InputProps extends HTMLInputElementProps {
   className?: string;
-  value?: string;
+  value?: string | number;
   onChange?: (value: string) => void;
   readonly?: boolean;
 }

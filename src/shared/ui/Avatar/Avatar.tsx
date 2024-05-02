@@ -1,8 +1,13 @@
 import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { classNames, Mods } from 'shared/lib/classNames/classNames';
 import cls from './Avatar.module.scss';
+
+export enum AvatarSize {
+  M = 'size_m',
+  L = 'size_l',
+  XL = 'size_xl',
+}
 
 interface AvatarProps {
   className?: string;
@@ -11,14 +16,7 @@ interface AvatarProps {
   isRound?: boolean;
 }
 
-export enum AvatarSize {
-  M = 'size_m',
-  L = 'size_l',
-  XL = 'size_xl',
-}
-
 export const Avatar: FC<AvatarProps> = memo((props) => {
-    const { t } = useTranslation();
     const {
         className, src, size = AvatarSize.L, isRound,
     } = props;
@@ -28,9 +26,11 @@ export const Avatar: FC<AvatarProps> = memo((props) => {
         [cls.round]: isRound,
     };
 
+    const defaultUserImg = 'https://www.truckeradvisor.com/media/uploads/profilePics/notFound.jpg';
+
     return (
         <img
-            src={src}
+            src={src ?? defaultUserImg}
             className={classNames(cls.avatar, mods, [className])}
             alt="avatar"
         />
