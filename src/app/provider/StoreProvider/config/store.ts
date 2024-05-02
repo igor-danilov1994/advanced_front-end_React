@@ -1,15 +1,12 @@
 import {
-    CombinedState,
-    configureStore,
-    Reducer,
-    ReducersMapObject,
+    CombinedState, configureStore, Reducer, ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { StateSchema } from 'app/provider/StoreProvider/config/StateSchema';
 import { userReducer } from 'entities/User/modal/slice/userSlice';
 import { createReducerManager } from 'app/provider/StoreProvider/config/reducerManager';
 import { $api } from 'shared/api/api';
 import type { To } from '@remix-run/router';
-import type { NavigateOptions } from 'react-router/dist/lib/context';
+import { NavigateOptions } from 'react-router-dom';
 
 export const createReduxStore = (
     initialState?: StateSchema,
