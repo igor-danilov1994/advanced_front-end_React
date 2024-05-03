@@ -7,12 +7,11 @@ import { useTranslation } from 'react-i18next';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { LoginModal } from 'feature/AuthByUsername';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from 'entities/User';
-import { getAuthData } from 'entities/User/modal/selectors/getAuthData/getAuthData';
+import { getAuthData, userActions } from 'entities/User';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
-  className?: string;
+    className?: string;
 }
 
 export const Navbar: FC<NavbarProps> = memo(({ className }) => {
