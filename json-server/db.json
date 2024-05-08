@@ -91,13 +91,13 @@
       "userId": "2"
     },
     {
-      "id": "3",
+      "id": "1",
       "text": "some comment 3",
       "articleId": "1",
       "userId": "2"
     },
     {
-      "id": "4",
+      "id": "2",
       "text": "some comment 4",
       "articleId": "1",
       "userId": "2"
@@ -108,13 +108,15 @@
       "id": "1",
       "username": "admin",
       "password": "123",
-      "role": "ADMIN"
+      "role": "ADMIN",
+      "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
     },
     {
       "id": "2",
       "username": "admin",
       "password": "1234",
-      "role": "USER"
+      "role": "USER",
+      "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
     }
   ],
   "profile": {
@@ -125,6 +127,6 @@
     "country": "USA",
     "city": "California",
     "currency": "EUR",
-    "avatar": "https://media.licdn.com/dms/image/D4E35AQGaZy-OzHGvuw/profile-framedphoto-shrink_200_200/0/1695894749917?e=1715151600&v=beta&t=WMsvMPnxkVhTJljkD5EfATVBSzQ-W5FAq40d5wB6Vxc"
+    "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
   }
 }

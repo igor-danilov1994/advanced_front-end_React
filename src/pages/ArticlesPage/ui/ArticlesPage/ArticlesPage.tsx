@@ -16,6 +16,7 @@ import {
 import { getArticles } from 'entities/Article/model/selectors/getArticles/getArticles';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
+import { commentsReducer } from 'entities/Comment';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -25,12 +26,14 @@ interface ArticlesPageProps {
 const reducers: ReducersList = {
     articles: articleReducer,
     articlesDetails: articleDetailsReducer,
+    comments: commentsReducer,
 };
 
 const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const articles = useSelector(getArticles);
+
     const { className } = props;
     const articlesList = articles?.data ?? [];
 

@@ -24,6 +24,9 @@ import { Avatar, AvatarSize } from 'shared/ui/Avatar/Avatar';
 import EyeIcon from 'shared/assets/eyeIcon.svg';
 import SchedulerIcon from 'shared/assets/schedulerIcon.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
+import { CommentList } from 'entities/Comment';
+import { fetchComments } from 'entities/Comment/model/services/fetchComments';
+import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
 import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
@@ -38,8 +41,8 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     const articlesDetails = useSelector(getArticlesDetails);
     const loading = useSelector(getArticlesDetailsLoading);
     const error = useSelector(getArticlesDetailsError);
+    const comments = useSelector(getArticleComments.selectAll);
     const { className, articleId, article } = props;
-
     const articleData = articlesDetails ?? article;
 
     useEffect(() => {
@@ -47,6 +50,14 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
             dispatch(fetchArticleById(articleId));
         }
     }, [dispatch, articleId]);
+
+    useEffect(() => {
+        if (articleData) {
+            dispatch(fetchComments(articleData.id));
+        }
+    }, [dispatch, articleData]);
+
+    console.log('comments', comments);
 
     const renderBlock = useCallback((block: ArticleBlocks) => {
         switch (block.type) {
@@ -125,7 +136,10 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
                 <Icon className={cls.icon} Svg={SchedulerIcon} />
                 <Text title={`${articleData?.created}`} />
             </div>
+
             {article?.blocks.map(renderBlock)}
+
+            <CommentList comments={comments} />
         </div>
     );
 });

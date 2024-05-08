@@ -4,8 +4,7 @@ import { useSelector } from 'react-redux';
 import { getAuthData } from 'entities/User';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 
-interface RequireAuthProps {
-}
+interface RequireAuthProps {}
 
 export const RequireAuth: FC<RequireAuthProps> = memo((props) => {
     const auth = useSelector(getAuthData);
@@ -14,10 +13,8 @@ export const RequireAuth: FC<RequireAuthProps> = memo((props) => {
     const { children } = props;
 
     if (!auth) {
-        return (
-            <Navigate to={RoutePath.main} state={{ from: location }} replace />
-        );
+        return <Navigate to={RoutePath.main} state={{ from: location }} replace />;
     }
 
-    return <div style={{ width: '100%' }}>{children}</div>;
+    return <div className="page-wrapper">{children}</div>;
 });
