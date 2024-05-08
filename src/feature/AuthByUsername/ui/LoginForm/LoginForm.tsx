@@ -6,7 +6,7 @@ import { Button } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
 import { useSelector } from 'react-redux';
 
-import { Text, ThemeText } from 'shared/ui/Text /Text';
+import { Text, ThemeText } from 'shared/ui/Text/Text';
 import {
     loginActions,
     loginReducer,

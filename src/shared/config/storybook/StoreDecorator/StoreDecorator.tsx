@@ -4,10 +4,13 @@ import { StoreProvider } from 'app/provider/StoreProvider';
 import { loginReducer } from 'feature/AuthByUsername/model/slice/loginSlice';
 import { profileReducer } from 'entities/Profile';
 import { ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { articleDetailsReducer, articleReducer } from 'entities/Article';
 
 const defaultAsyncReducers: ReducersList = {
     login: loginReducer,
     profile: profileReducer,
+    articles: articleReducer,
+    articlesDetails: articleDetailsReducer,
 };
 
 export const StoreDecorator = (state: DeepPartial<StateSchema>, asyncReducers?: ReducersList) => (StoryComponent: Story) => (

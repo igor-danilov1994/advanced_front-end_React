@@ -25,6 +25,7 @@ module.exports = {
         'import/no-unresolved': 'off',
         'react/jsx-no-useless-fragment': 'off',
         'import/prefer-default-export': 'off',
+        'jsx-a11y/img-redundant-alt': 'off',
         'no-unused-vars': 'warn',
         'react/require-default-props': 'off',
         'react/react-in-jsx-scope': 'off',

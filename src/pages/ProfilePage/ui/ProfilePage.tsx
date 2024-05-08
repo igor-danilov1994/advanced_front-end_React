@@ -13,7 +13,7 @@ import {
     profileReducer,
 } from 'entities/Profile';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
-import { Text, ThemeText } from 'shared/ui/Text /Text';
+import { Text, ThemeText } from 'shared/ui/Text/Text';
 
 import { ProfilePageHeader } from 'pages/ProfilePage';
 import { Currency } from 'shared/const/common';

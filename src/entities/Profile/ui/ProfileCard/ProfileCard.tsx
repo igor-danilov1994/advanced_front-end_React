@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Input } from 'shared/ui/Input/Input';
-import { Text, ThemeText } from 'shared/ui/Text /Text';
+import { Text, ThemeText } from 'shared/ui/Text/Text';
 import { Loader } from 'widgets/Loader/ui/Loader';
 import { Avatar, AvatarSize } from 'shared/ui/Avatar/Avatar';
 import { Select } from 'shared/ui/Select/Select';
