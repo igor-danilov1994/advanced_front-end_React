@@ -1,5 +1,6 @@
 import { FC, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
@@ -22,6 +23,8 @@ import { getProfileData } from 'entities/Profile/model/selectors/getProfileData/
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { getProfileLoading } from 'entities/Profile/model/selectors/getProfileLoading/getProfileLoading';
 import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
+import { User } from 'entities/User';
+import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import cls from './ProfilePage.module.scss';
 
 export interface ProfilePageProps {
@@ -40,12 +43,23 @@ const ProfilePage: FC<ProfilePageProps> = (props) => {
     const isLoading = useSelector(getProfileLoading);
     const error = useSelector(getProfileError);
     const { className } = props;
+    const { id } = useParams<{ id: string }>();
+
+    const currentUser: User = JSON.parse(
+    localStorage.getItem(USER_LOCALSTORAGE_KEY)!,
+    );
+
+    const loginUser = id ?? currentUser.id;
+    const ID: User = JSON.parse(loginUser!);
+    const userId = id ?? ID.id;
+
+    const isOwner = currentUser.id === id;
 
     useEffect(() => {
         if (__PROJECT__ !== 'storybook') {
-            dispatch(fetchProfileData());
+            if (userId) dispatch(fetchProfileData(userId));
         }
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
     const onChangeFirstName = useCallback(
         (first: string) => {
@@ -116,7 +130,11 @@ const ProfilePage: FC<ProfilePageProps> = (props) => {
     return (
         <DynamicModuleLoader reducers={reducers}>
             <div className={classNames(cls.ProfilePage, {}, [className])}>
-                <ProfilePageHeader readonly={readonly} />
+                <ProfilePageHeader
+                    isOwner={isOwner}
+                    readonly={readonly}
+                    profileId={profileData?.id}
+                />
 
                 {validateError?.map((error) => (
                     <Text key={error} text={error} theme={ThemeText.ERROR} />

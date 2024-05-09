@@ -13,6 +13,7 @@ const data: Profile = {
     first: 'asd',
     city: 'asf',
     currency: Currency.USD,
+    id: '1',
 };
 
 describe('updateProfileData.test', () => {
@@ -23,7 +24,7 @@ describe('updateProfileData.test', () => {
             },
         });
         thunk.api.put.mockReturnValue(Promise.resolve({ data }));
-        const result = await thunk.callThunk();
+        const result = await thunk.callThunk('1');
 
         expect(thunk.api.put).toHaveBeenCalled();
         expect(result.meta.requestStatus).toBe('fulfilled');
@@ -33,7 +34,7 @@ describe('updateProfileData.test', () => {
     test('updateProfileData return error', async () => {
         const thunk = new TestAsyncThunk(updateProfileData);
         thunk.api.put.mockReturnValue(Promise.resolve({ status: 403 }));
-        const result = await thunk.callThunk();
+        const result = await thunk.callThunk('1');
 
         expect(result.meta.requestStatus).toBe('rejected');
     });

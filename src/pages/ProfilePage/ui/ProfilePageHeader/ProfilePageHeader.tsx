@@ -11,24 +11,30 @@ import cls from './ProfilePageHeader.module.scss';
 interface ProfilePageHeaderProps {
   className?: string;
   readonly?: boolean;
+  isOwner?: boolean;
+  profileId?: string;
 }
 
 export const ProfilePageHeader: FC<ProfilePageHeaderProps> = memo((props) => {
+    const {
+        className, readonly, isOwner, profileId,
+    } = props;
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const { className, readonly } = props;
 
     const changeReadonlyState = () => {
         dispatch(profileActions.changeReadonly(!readonly));
     };
 
     const saveProfileData = () => {
-        dispatch(updateProfileData());
+        if (profileId) updateProfileData(profileId);
     };
 
     const cancel = () => {
         dispatch(profileActions.cancel());
     };
+
+    if (!isOwner) return null;
 
     return (
         <div className={classNames(cls.ProfilePageHeader, {}, [className])}>

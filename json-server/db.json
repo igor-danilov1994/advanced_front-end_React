@@ -93,14 +93,62 @@
     {
       "id": "1",
       "text": "some comment 3",
-      "articleId": "1",
+      "articleId": "2",
       "userId": "2"
     },
     {
       "id": "2",
       "text": "some comment 4",
-      "articleId": "1",
+      "articleId": "2",
       "userId": "2"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "new comment",
+      "id": "hpNJo6W"
+    },
+    {
+      "articleId": "2",
+      "userId": "1",
+      "text": "new comment2",
+      "id": "wzg_nY5"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "1231",
+      "id": "4YIOlb7"
+    },
+    {
+      "articleId": "2",
+      "userId": "1",
+      "text": "141",
+      "id": "dJto3ed"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "11111111",
+      "id": "DY0JoRX"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "sdsD",
+      "id": "g1sVGr6"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "adasda",
+      "id": "Ahu7ooY"
+    },
+    {
+      "articleId": "1",
+      "userId": "1",
+      "text": "356353",
+      "id": "6t9J0UA"
     }
   ],
   "users": [
@@ -119,14 +167,28 @@
       "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
     }
   ],
-  "profile": {
-    "name": "typicode",
-    "first": "sdfsIgor",
-    "lastname": "Danilovsdfsd",
-    "age": "30",
-    "country": "USA",
-    "city": "California",
-    "currency": "EUR",
-    "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
-  }
+  "profile": [
+    {
+      "name": "first user",
+      "id": "1",
+      "first": "1Igor",
+      "lastname": "Danilovsdfsd",
+      "age": "30",
+      "country": "Russia",
+      "city": "Moscow",
+      "currency": "EUR",
+      "avatar": "https://i0.wp.com/securitymadesimple.org/wp-content/uploads/2023/03/a19aa-computerhacker.png?fit=1280%2C960&ssl=1"
+    },
+    {
+      "name": "second user",
+      "id": "2",
+      "first": "2Igor",
+      "lastname": "Danilovsdfsd",
+      "age": "30",
+      "country": "USA",
+      "city": "California",
+      "currency": "EUR",
+      "avatar": "https://as1.ftcdn.net/v2/jpg/02/04/65/06/1000_F_204650616_TRYxpIwZnEg7Yu4CDDE790fQwsRbBlUU.jpg"
+    }
+  ]
 }

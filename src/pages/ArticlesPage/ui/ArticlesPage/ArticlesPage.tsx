@@ -1,5 +1,4 @@
 import { FC, memo, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
@@ -30,7 +29,6 @@ const reducers: ReducersList = {
 };
 
 const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
-    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const articles = useSelector(getArticles);
 

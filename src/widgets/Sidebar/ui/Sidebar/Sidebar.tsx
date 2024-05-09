@@ -1,7 +1,6 @@
 import {
     FC, memo, useMemo, useState,
 } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { ThemeSwitcher } from 'shared/ui/ThemeSwitcher';
@@ -14,13 +13,12 @@ import { SidebarItem } from '../SidebarItem/SidebarItem';
 import cls from './Sidebar.module.scss';
 
 interface SidebarProps {
-    className?: string;
+  className?: string;
 }
 
 export const Sidebar: FC<SidebarProps> = memo(({ className }) => {
     const [collapsed, setCollapsed] = useState(false);
     const isAuth = useSelector(getAuthData);
-    const { t } = useTranslation();
 
     const toggleCollapsed = () => {
         setCollapsed((prevState) => !prevState);

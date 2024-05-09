@@ -1,25 +1,30 @@
-import { FC, memo, useCallback } from 'react';
+import { FC, memo, useEffect } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Comment } from 'entities/Comment';
 import { Text } from 'shared/ui/Text/Text';
 import { CommentCard } from 'entities/Comment/ui/CommentCard/CommentCard';
+import { fetchComments } from 'entities/Comment/model/services/fetchComments';
+import { useSelector } from 'react-redux';
+import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
+import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
+import { getCommentsLoading } from 'entities/Comment/model/selectors/getComments';
 import cls from './CommentList.module.scss';
 
 interface CommentListProps {
   className?: string;
-  comments?: Comment[];
-  isLoading?: boolean;
+  articleId?: string;
 }
 
 export const CommentList: FC<CommentListProps> = memo((props) => {
-    const { className, comments } = props;
+    const { className, articleId } = props;
+    const comments = useSelector(getArticleComments.selectAll);
+    const isLoading = useSelector(getCommentsLoading);
+    const dispatch = useAppDispatch();
 
-    const renderComment = useCallback(
-        (comment: Comment) => (
-            <CommentCard key={comment.id} comment={comment} className={cls.comment} />
-        ),
-        [],
-    );
+    useEffect(() => {
+        if (articleId) {
+            dispatch(fetchComments(articleId));
+        }
+    }, [dispatch, articleId]);
 
     if (!comments?.length) {
         return <Text title="Коментарии отсутствуют" />;
@@ -27,7 +32,14 @@ export const CommentList: FC<CommentListProps> = memo((props) => {
 
     return (
         <div className={classNames(cls.CommentCard, {}, [className])}>
-            {comments?.length && comments.map(renderComment)}
+            {comments.map((comment) => (
+                <CommentCard
+                    key={comment.id}
+                    comment={comment}
+                    className={cls.comment}
+                    isLoading={isLoading}
+                />
+            ))}
         </div>
     );
 });

@@ -12,6 +12,7 @@ import type { To } from '@remix-run/router';
 import { NavigateOptions } from 'react-router-dom';
 import { ArticleDetailsSchema, ArticleSchema } from 'entities/Article';
 import { CommentsSchema } from 'entities/Comment/model/types/comment';
+import { AddNewCommentsFormSchema } from 'feature/addNewComment';
 
 export interface StateSchema {
   user: UserSchema;
@@ -22,6 +23,7 @@ export interface StateSchema {
   articles?: ArticleSchema;
   articlesDetails?: ArticleDetailsSchema;
   comments?: CommentsSchema;
+  addCommentForm?: AddNewCommentsFormSchema;
 }
 
 export type StateSchemaKey = keyof StateSchema;

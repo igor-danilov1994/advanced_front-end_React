@@ -25,8 +25,9 @@ import EyeIcon from 'shared/assets/eyeIcon.svg';
 import SchedulerIcon from 'shared/assets/schedulerIcon.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
 import { CommentList } from 'entities/Comment';
-import { fetchComments } from 'entities/Comment/model/services/fetchComments';
-import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
+
+import { AddCommentForm } from 'feature/addNewComment';
+import { addNewComment } from 'feature/addNewComment/model/services/addNewComment';
 import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
@@ -41,7 +42,6 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     const articlesDetails = useSelector(getArticlesDetails);
     const loading = useSelector(getArticlesDetailsLoading);
     const error = useSelector(getArticlesDetailsError);
-    const comments = useSelector(getArticleComments.selectAll);
     const { className, articleId, article } = props;
     const articleData = articlesDetails ?? article;
 
@@ -51,13 +51,9 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
         }
     }, [dispatch, articleId]);
 
-    useEffect(() => {
-        if (articleData) {
-            dispatch(fetchComments(articleData.id));
-        }
-    }, [dispatch, articleData]);
-
-    console.log('comments', comments);
+    const onSendTextComment = useCallback(() => {
+        dispatch(addNewComment(articleData?.id));
+    }, [dispatch, articleData?.id]);
 
     const renderBlock = useCallback((block: ArticleBlocks) => {
         switch (block.type) {
@@ -113,7 +109,6 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     if (error) {
         return <Text title={t('Произошла ошибка при загрузке статьи.')} />;
     }
-
     return (
         <div className={classNames(cls.ArticleDetails, {}, [className])}>
             <div className={cls.avatarWrapper}>
@@ -139,7 +134,11 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
 
             {article?.blocks.map(renderBlock)}
 
-            <CommentList comments={comments} />
+            <CommentList articleId={articleData?.id} />
+
+            <Text title="Ваш коментарий" />
+
+            <AddCommentForm onSendComment={onSendTextComment} />
         </div>
     );
 });

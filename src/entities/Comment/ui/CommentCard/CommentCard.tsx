@@ -4,6 +4,8 @@ import { Comment } from 'entities/Comment';
 import { Text } from 'shared/ui/Text/Text';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
+import { AppLink } from 'shared/ui/AppLink/AppLink';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './CommentCard.module.scss';
 
 interface CommentCardProps {
@@ -29,10 +31,13 @@ export const CommentCard: FC<CommentCardProps> = memo((props) => {
 
     return (
         <div className={classNames(cls.CommentCard, {}, [className])}>
-            <div className={cls.header}>
-                <Avatar src={comment.user.avatar} />
+            <AppLink
+                to={`${RoutePath.profile}${comment.user.id}`}
+                className={cls.header}
+            >
+                <Avatar className={cls.userAvatar} src={comment.user.avatar} />
                 <Text className={cls.username} title={comment.user.username} />
-            </div>
+            </AppLink>
             <Text className={cls.text} text={comment.text} />
         </div>
     );
