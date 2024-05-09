@@ -3,7 +3,8 @@ import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
-import { SidebarItemsType } from '../../model/items';
+
+import { SidebarItemsType } from 'widgets/Sidebar';
 import cls from './SidebarItem.module.scss';
 
 interface SidebarItemProps {
