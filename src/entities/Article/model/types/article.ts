@@ -1,3 +1,5 @@
+import { User } from 'entities/User';
+
 export interface ArticleBlocksBase {
   id: string;
   type: string;
@@ -35,6 +37,7 @@ export interface Article {
   id: string;
   title: string;
   subtitle: string;
+  user: User;
   img: string;
   views: number;
   created: string;
@@ -53,4 +56,9 @@ export interface Comments {
   text: string;
   articleId: string;
   userId: string;
+}
+
+export enum ArticleView {
+  BIG = 'BIG',
+  SMALL = 'SMALL',
 }

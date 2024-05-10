@@ -3,7 +3,6 @@ import { FC, memo, useEffect } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import {
-    ArticleDetails,
     articleDetailsReducer,
     articleReducer,
     fetchArticles,
@@ -16,6 +15,7 @@ import { getArticles } from 'entities/Article/model/selectors/getArticles/getArt
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { commentsReducer } from 'entities/Comment';
+import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -59,9 +59,11 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     return (
         <DynamicModuleLoader reducers={reducers}>
             <div className={classNames(cls.ArticlesPage, {}, [className])}>
-                {articlesList.map((article) => (
-                    <ArticleDetails key={article.id} article={article} />
-                ))}
+                {/* {articlesList.map((article) => ( */}
+                {/*    <ArticleDetails key={article.id} article={article} /> */}
+                {/* ))} */}
+
+                <ArticleList articles={articlesList} />
             </div>
         </DynamicModuleLoader>
     );

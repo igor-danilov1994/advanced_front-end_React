@@ -6,6 +6,7 @@ export {
     ArticleBlockText,
     ArticleBlockImage,
     ArticleBlocksType,
+    ArticleView,
 } from './model/types/article';
 export { fetchArticles } from './model/services/fetchArticles/fetchArticles';
 export { fetchArticleById } from './model/services/fetchArticleById/fetchArticleById';

@@ -23,6 +23,10 @@ const art: Article = {
     img: 'https://static.javatpoint.com/images/javascript/javascript_logo.png',
     views: 1012,
     created: '25.02.2024',
+    user: {
+        id: '1',
+        username: 'user',
+    },
     type: ['IT'],
     blocks: [
         {

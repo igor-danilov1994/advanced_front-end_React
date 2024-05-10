@@ -15,6 +15,7 @@
     {
       "id": "1",
       "title": "JavaScript new",
+      "userId": "1",
       "subtitle": "Что нового в JS",
       "img": "https://static.javatpoint.com/images/javascript/javascript_logo.png",
       "views": 1012,
@@ -46,6 +47,7 @@
     },
     {
       "id": "2",
+      "userId": "2",
       "title": "2JavaScript new",
       "subtitle": "Что нового в JS",
       "img": "https://static.javatpoint.com/images/javascript/javascript_logo.png",

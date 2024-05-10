@@ -1,6 +1,5 @@
 import { FC, memo, useEffect } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
-import { Text } from 'shared/ui/Text/Text';
 import { CommentCard } from 'entities/Comment/ui/CommentCard/CommentCard';
 import { fetchComments } from 'entities/Comment/model/services/fetchComments';
 import { useSelector } from 'react-redux';
@@ -25,10 +24,6 @@ export const CommentList: FC<CommentListProps> = memo((props) => {
             dispatch(fetchComments(articleId));
         }
     }, [dispatch, articleId]);
-
-    if (!comments?.length) {
-        return <Text title="Коментарии отсутствуют" />;
-    }
 
     return (
         <div className={classNames(cls.CommentCard, {}, [className])}>
