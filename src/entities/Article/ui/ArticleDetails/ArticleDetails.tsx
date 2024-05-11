@@ -13,6 +13,7 @@ import {
     ArticleCodeBlockComponent,
     ArticleImageBlockComponent,
     ArticleTextBlockComponent,
+    ArticleView,
     fetchArticleById,
     getArticlesDetails,
     getArticlesDetailsError,
@@ -34,6 +35,7 @@ interface ArticleDetailsProps {
   className?: string;
   articleId?: string;
   article?: Article;
+  view?: ArticleView;
 }
 
 export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
@@ -42,7 +44,9 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     const articlesDetails = useSelector(getArticlesDetails);
     const loading = useSelector(getArticlesDetailsLoading);
     const error = useSelector(getArticlesDetailsError);
-    const { className, articleId, article } = props;
+    const {
+        className, articleId, article, view,
+    } = props;
     const articleData = articlesDetails ?? article;
 
     useEffect(() => {
@@ -109,6 +113,7 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     if (error) {
         return <Text title={t('Произошла ошибка при загрузке статьи.')} />;
     }
+
     return (
         <div className={classNames(cls.ArticleDetails, {}, [className])}>
             <div className={cls.avatarWrapper}>
@@ -132,7 +137,7 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
                 <Text title={`${articleData?.created}`} />
             </div>
 
-            {article?.blocks.map(renderBlock)}
+            {articleData?.blocks.map(renderBlock)}
 
             <CommentList articleId={articleData?.id} />
 

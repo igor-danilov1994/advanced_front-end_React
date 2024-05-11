@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import React, { FC, memo, useEffect } from 'react';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';

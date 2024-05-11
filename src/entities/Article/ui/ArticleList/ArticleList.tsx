@@ -2,7 +2,7 @@ import { FC, memo, useCallback } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { Article, ArticleView } from 'entities/Article';
 import cls from './ArticleList.module.scss';
-import { ArticleListItem } from '../../ui/ArticleListItem/ArticleListItem';
+import { ArticleListItem } from '../ArticleListItem/ArticleListItem';
 
 interface ArticleListProps {
   className?: string;
