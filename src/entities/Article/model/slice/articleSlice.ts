@@ -1,16 +1,34 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ArticleSchema, fetchArticles } from 'entities/Article';
+import { ArticleSchema, ArticleView, fetchArticles } from 'entities/Article';
 
 const initialState: ArticleSchema = {
     isLoading: false,
     error: undefined,
-    data: undefined,
+    data: [],
+    page: 1,
+    hasMore: true,
+    view: ArticleView.BIG,
+    limit: 4,
 };
 
 export const articleSlice = createSlice({
     name: 'article',
     initialState,
-    reducers: {},
+    reducers: {
+        setPage: (state, action: PayloadAction<number>) => {
+            state.page = action.payload;
+        },
+        setInit: (state, action) => {
+            state.limit = state.view === ArticleView.BIG ? 4 : 9;
+        },
+        setView: (state) => {
+            if (state.view === ArticleView.SMALL) {
+                state.view = ArticleView.BIG;
+            } else {
+                state.view = ArticleView.SMALL;
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchArticles.pending, (state) => {
@@ -18,8 +36,9 @@ export const articleSlice = createSlice({
                 state.error = undefined;
             })
             .addCase(fetchArticles.fulfilled, (state, action: PayloadAction<any>) => {
-                state.data = action.payload;
+                state.data = [...state.data!, ...action.payload];
                 state.isLoading = false;
+                state.hasMore = action.payload.length > 0;
             })
             .addCase(fetchArticles.rejected, (state, action) => {
                 state.isLoading = false;

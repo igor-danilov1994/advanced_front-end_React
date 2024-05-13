@@ -1,21 +1,29 @@
-import React, { FC, memo, useEffect } from 'react';
+import React, {
+    FC, memo, useCallback, useEffect,
+} from 'react';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import {
+    articleActions,
     articleDetailsReducer,
     articleReducer,
     fetchArticles,
+    getArticles,
+    getArticlesHasMore,
+    getArticlesPage,
+    getArticlesView,
 } from 'entities/Article';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { getArticles } from 'entities/Article/model/selectors/getArticles/getArticles';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { commentsReducer } from 'entities/Comment';
 import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
+import { Button } from 'shared/ui/Button/Button';
+import { Page } from 'shared/ui/Page/Page';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -31,16 +39,29 @@ const reducers: ReducersList = {
 const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     const dispatch = useAppDispatch();
     const articles = useSelector(getArticles);
+    const view = useSelector(getArticlesView);
+    const page = useSelector(getArticlesPage);
+    const hasMore = useSelector(getArticlesHasMore);
 
     const { className } = props;
     const articlesList = articles?.data ?? [];
 
     useEffect(() => {
-        dispatch(fetchArticles());
-    }, [dispatch]);
+        dispatch(articleActions.setInit);
+        dispatch(fetchArticles({ page }));
+    }, [dispatch, page]);
 
-    if (articles?.isLoading) {
-        return (
+    const setChangeView = () => {
+        dispatch(articleActions.setView());
+    };
+
+    const uploadMoreArticles = useCallback(() => {
+        dispatch(articleActions.setPage(page + 1));
+        dispatch(fetchArticles({ page: page + 1 }));
+    }, [dispatch, page]);
+
+    const getSkeleton = useCallback(
+        () => (
             <div>
                 <Skeleton
                     className={classNames(cls.avatar, {}, [cls.skeleton])}
@@ -53,18 +74,20 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
                 <Skeleton className={cls.skeleton} width="100%" height={200} />
                 <Skeleton className={cls.skeleton} width="100%" height={200} />
             </div>
-        );
-    }
+        ),
+        [],
+    );
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            <div className={classNames(cls.ArticlesPage, {}, [className])}>
-                {/* {articlesList.map((article) => ( */}
-                {/*    <ArticleDetails key={article.id} article={article} /> */}
-                {/* ))} */}
+            <Page onScrollEnd={uploadMoreArticles}>
+                <div className={classNames(cls.ArticlesPage, {}, [className])}>
+                    <Button onClick={setChangeView}>Change view</Button>
+                    <ArticleList articles={articlesList} view={view} />
+                </div>
 
-                <ArticleList articles={articlesList} />
-            </div>
+                {articles?.isLoading && getSkeleton()}
+            </Page>
         </DynamicModuleLoader>
     );
 });

@@ -49,6 +49,11 @@ export interface ArticleSchema {
   error?: string;
   isLoading: boolean;
   data?: Article[];
+  // eslint-disable-next-line no-use-before-define
+  view: ArticleView;
+  page: number;
+  limit: number;
+  hasMore: boolean;
 }
 
 export interface Comments {

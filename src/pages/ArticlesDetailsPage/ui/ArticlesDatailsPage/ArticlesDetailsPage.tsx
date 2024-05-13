@@ -11,6 +11,7 @@ import {
 import { commentsReducer } from 'entities/Comment';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { Page } from 'shared/ui/Page/Page';
 import cls from './ArticlesDetailsPage.module.scss';
 
 interface ArticlesDetailsPageProps {
@@ -34,12 +35,14 @@ const ArticlesDetailsPage: FC<ArticlesDetailsPageProps> = memo((props) => {
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-                Назад к списку
-            </Button>
-            <div className={classNames(cls.ArticlesDatailsPage, {}, [className])}>
-                {id && <ArticleDetails articleId={id} />}
-            </div>
+            <Page>
+                <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
+                    Назад к списку
+                </Button>
+                <div className={classNames(cls.ArticlesDatailsPage, {}, [className])}>
+                    {id && <ArticleDetails articleId={id} />}
+                </div>
+            </Page>
         </DynamicModuleLoader>
     );
 });

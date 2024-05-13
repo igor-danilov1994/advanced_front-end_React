@@ -25,6 +25,7 @@ import { getProfileLoading } from 'entities/Profile/model/selectors/getProfileLo
 import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
 import { User } from 'entities/User';
 import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
+import { Page } from 'shared/ui/Page/Page';
 import cls from './ProfilePage.module.scss';
 
 export interface ProfilePageProps {
@@ -129,30 +130,32 @@ const ProfilePage: FC<ProfilePageProps> = (props) => {
 
     return (
         <DynamicModuleLoader reducers={reducers}>
-            <div className={classNames(cls.ProfilePage, {}, [className])}>
-                <ProfilePageHeader
-                    isOwner={isOwner}
-                    readonly={readonly}
-                    profileId={profileData?.id}
-                />
+            <Page>
+                <div className={classNames(cls.ProfilePage, {}, [className])}>
+                    <ProfilePageHeader
+                        isOwner={isOwner}
+                        readonly={readonly}
+                        profileId={profileData?.id}
+                    />
 
-                {validateError?.map((error) => (
-                    <Text key={error} text={error} theme={ThemeText.ERROR} />
-                ))}
+                    {validateError?.map((error) => (
+                        <Text key={error} text={error} theme={ThemeText.ERROR} />
+                    ))}
 
-                <ProfileCard
-                    profile={profileData}
-                    isLoading={isLoading}
-                    error={error}
-                    readonly={readonly}
-                    onChangeFirstName={onChangeFirstName}
-                    onChangeLastName={onChangeLastName}
-                    onChangeAvatar={onChangeAvatar}
-                    onChangeAge={onChangeAge}
-                    onChangeCity={onChangeCity}
-                    onChangCurrency={onChangCurrency}
-                />
-            </div>
+                    <ProfileCard
+                        profile={profileData}
+                        isLoading={isLoading}
+                        error={error}
+                        readonly={readonly}
+                        onChangeFirstName={onChangeFirstName}
+                        onChangeLastName={onChangeLastName}
+                        onChangeAvatar={onChangeAvatar}
+                        onChangeAge={onChangeAge}
+                        onChangeCity={onChangeCity}
+                        onChangCurrency={onChangCurrency}
+                    />
+                </div>
+            </Page>
         </DynamicModuleLoader>
     );
 };

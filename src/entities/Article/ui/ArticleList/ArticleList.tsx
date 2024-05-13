@@ -8,11 +8,11 @@ interface ArticleListProps {
   className?: string;
   articles: Article[];
   isLoading?: boolean;
-  view?: ArticleView;
+  view: ArticleView;
 }
 
 export const ArticleList: FC<ArticleListProps> = memo((props) => {
-    const { className, articles, view = ArticleView.BIG } = props;
+    const { className, articles, view } = props;
 
     const renderArticle = useCallback(
         (article: Article) => (
