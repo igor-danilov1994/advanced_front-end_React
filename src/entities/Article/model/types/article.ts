@@ -54,6 +54,7 @@ export interface ArticleSchema {
   page: number;
   limit: number;
   hasMore: boolean;
+  _inited: boolean;
 }
 
 export interface Comments {

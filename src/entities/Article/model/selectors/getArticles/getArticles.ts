@@ -6,3 +6,8 @@ export const getArticlesView = (state: StateSchema) => state.articles?.view || A
 export const getArticlesLimit = (state: StateSchema) => state.articles?.limit;
 export const getArticlesPage = (state: StateSchema) => state.articles?.page || 1;
 export const getArticlesHasMore = (state: StateSchema) => state.articles?.hasMore;
+
+export const getArticlesDetailsError = (state: StateSchema) => state.articlesDetails?.error;
+export const getArticlesDetailsLoading = (state: StateSchema) => state.articlesDetails?.isLoading;
+export const getArticlesDetails = (state: StateSchema) => state?.articlesDetails?.data;
+export const getArticlesPageInit = (state: StateSchema) => state?.articles?._inited;

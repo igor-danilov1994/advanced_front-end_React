@@ -17,14 +17,15 @@ export {
 } from './model/slice/articleDetailsSlice';
 export { ArticleDetailsSchema } from './model/types/articleDetailsSchema';
 export { ArticleSchema } from './model/types/article';
-export { getArticlesDetailsError } from './model/selectors/getArticlesDetailsError/getArticlesDetailsError';
-export { getArticlesDetailsLoading } from './model/selectors/getArticlesDetailsLoading/getArticlesDetailsLoading';
-export { getArticlesDetails } from './model/selectors/getArticlesDetails/getArticlesDetails';
 export {
     getArticles,
     getArticlesView,
     getArticlesPage,
     getArticlesHasMore,
+    getArticlesPageInit,
+    getArticlesDetails,
+    getArticlesDetailsError,
+    getArticlesDetailsLoading,
 } from './model/selectors/getArticles/getArticles';
 export { ArticleCodeBlockComponent } from './ui/ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 export { ArticleTextBlockComponent } from './ui/ArticleTextBlockComponent/ArticleTextBlockComponent';

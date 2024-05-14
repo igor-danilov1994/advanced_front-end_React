@@ -9,6 +9,7 @@ const initialState: ArticleSchema = {
     hasMore: true,
     view: ArticleView.BIG,
     limit: 4,
+    _inited: false,
 };
 
 export const articleSlice = createSlice({
@@ -18,8 +19,9 @@ export const articleSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
-        setInit: (state, action) => {
+        setInit: (state) => {
             state.limit = state.view === ArticleView.BIG ? 4 : 9;
+            state._inited = true;
         },
         setView: (state) => {
             if (state.view === ArticleView.SMALL) {

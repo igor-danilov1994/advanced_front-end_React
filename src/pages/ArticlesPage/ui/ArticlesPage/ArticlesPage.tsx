@@ -12,6 +12,7 @@ import {
     getArticles,
     getArticlesHasMore,
     getArticlesPage,
+    getArticlesPageInit,
     getArticlesView,
 } from 'entities/Article';
 import {
@@ -42,14 +43,17 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     const view = useSelector(getArticlesView);
     const page = useSelector(getArticlesPage);
     const hasMore = useSelector(getArticlesHasMore);
+    const inited = useSelector(getArticlesPageInit);
 
     const { className } = props;
     const articlesList = articles?.data ?? [];
 
     useEffect(() => {
-        dispatch(articleActions.setInit);
-        dispatch(fetchArticles({ page }));
-    }, [dispatch, page]);
+        if (!inited) {
+            dispatch(articleActions.setInit());
+            dispatch(fetchArticles({ page }));
+        }
+    }, [dispatch, inited, page]);
 
     const setChangeView = () => {
         dispatch(articleActions.setView());
@@ -79,7 +83,7 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     );
 
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removedAfterUnmount={false}>
             <Page onScrollEnd={uploadMoreArticles}>
                 <div className={classNames(cls.ArticlesPage, {}, [className])}>
                     <Button onClick={setChangeView}>Change view</Button>
