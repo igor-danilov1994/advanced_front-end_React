@@ -6,7 +6,6 @@ import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import {
     articleActions,
-    articleDetailsReducer,
     articleReducer,
     fetchArticles,
     getArticles,
@@ -21,10 +20,9 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
-import { commentsReducer } from 'entities/Comment';
 import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
 import { Button } from 'shared/ui/Button/Button';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -33,8 +31,6 @@ interface ArticlesPageProps {
 
 const reducers: ReducersList = {
     articles: articleReducer,
-    articlesDetails: articleDetailsReducer,
-    comments: commentsReducer,
 };
 
 const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
@@ -49,20 +45,22 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     const articlesList = articles?.data ?? [];
 
     useEffect(() => {
-        if (!inited) {
+        if (inited) {
             dispatch(articleActions.setInit());
-            dispatch(fetchArticles({ page }));
+            dispatch(fetchArticles({ page: 1 }));
         }
-    }, [dispatch, inited, page]);
+    }, [inited, dispatch]);
 
     const setChangeView = () => {
         dispatch(articleActions.setView());
     };
 
     const uploadMoreArticles = useCallback(() => {
-        dispatch(articleActions.setPage(page + 1));
-        dispatch(fetchArticles({ page: page + 1 }));
-    }, [dispatch, page]);
+        if (hasMore) {
+            dispatch(articleActions.setPage(page + 1));
+            dispatch(fetchArticles({ page: page + 1 }));
+        }
+    }, [dispatch, page, hasMore]);
 
     const getSkeleton = useCallback(
         () => (

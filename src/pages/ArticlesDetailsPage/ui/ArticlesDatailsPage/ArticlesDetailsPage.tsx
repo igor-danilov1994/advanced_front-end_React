@@ -11,7 +11,7 @@ import {
 import { commentsReducer } from 'entities/Comment';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 import cls from './ArticlesDetailsPage.module.scss';
 
 interface ArticlesDetailsPageProps {
@@ -34,7 +34,7 @@ const ArticlesDetailsPage: FC<ArticlesDetailsPageProps> = memo((props) => {
     }, [navigate]);
 
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removedAfterUnmount={false}>
             <Page>
                 <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
                     Назад к списку

@@ -11,9 +11,11 @@ import { AxiosInstance } from 'axios';
 import { ArticleDetailsSchema, ArticleSchema } from 'entities/Article';
 import { CommentsSchema } from 'entities/Comment/model/types/comment';
 import { AddNewCommentsFormSchema } from 'feature/addNewComment';
+import { UiScrollSchema } from 'feature/UiScroll';
 
 export interface StateSchema {
   user: UserSchema;
+  uiScroll: UiScrollSchema;
 
   // Async reducers
   login?: LoginSchema;
@@ -28,12 +30,11 @@ export type StateSchemaKey = keyof StateSchema;
 export type MountedReducers = OptionalRecord<StateSchemaKey, boolean>;
 
 export interface ReducerManager {
+  getMountedReducers: () => MountedReducers;
   getReducerMap: () => ReducersMapObject<StateSchema>;
   reduce: (state: StateSchema, action: any) => CombinedState<StateSchema>;
   add: (key: StateSchemaKey, reducer: Reducer) => void;
   remove: (key: StateSchemaKey) => void;
-
-  getMountedReducers: () => MountedReducers;
 }
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {

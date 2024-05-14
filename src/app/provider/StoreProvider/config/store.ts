@@ -1,20 +1,23 @@
 import {
-    CombinedState, configureStore, Reducer, ReducersMapObject,
+    CombinedState,
+    configureStore,
+    Reducer,
+    ReducersMapObject,
 } from '@reduxjs/toolkit';
-import { StateSchema } from 'app/provider/StoreProvider/config/StateSchema';
-import { userReducer } from 'entities/User/modal/slice/userSlice';
-import { createReducerManager } from 'app/provider/StoreProvider/config/reducerManager';
+import { createReducerManager, StateSchema } from 'app/provider/StoreProvider';
+import { userReducer } from 'entities/User';
+
 import { $api } from 'shared/api/api';
-import type { To } from '@remix-run/router';
-import { NavigateOptions } from 'react-router-dom';
+import { UiScrollReducer } from 'feature/UiScroll';
 
 export const createReduxStore = (
     initialState?: StateSchema,
     asyncReducers?: ReducersMapObject<StateSchema>,
-    navigate?: (to: To, options?: NavigateOptions) => void,
 ) => {
     const rootReducers: ReducersMapObject<StateSchema> = {
+        ...asyncReducers,
         user: userReducer,
+        uiScroll: UiScrollReducer,
     };
 
     const reducerManager = createReducerManager(rootReducers);
@@ -28,7 +31,6 @@ export const createReduxStore = (
             thunk: {
                 extraArgument: {
                     api: $api,
-                    navigate,
                 },
             },
         }),

@@ -25,7 +25,7 @@ import { getProfileLoading } from 'entities/Profile/model/selectors/getProfileLo
 import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
 import { User } from 'entities/User';
 import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
-import { Page } from 'shared/ui/Page/Page';
+import { Page } from 'widgets/Page/Page';
 import cls from './ProfilePage.module.scss';
 
 export interface ProfilePageProps {

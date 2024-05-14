@@ -26,6 +26,7 @@ export {
     getArticlesDetails,
     getArticlesDetailsError,
     getArticlesDetailsLoading,
+    getArticlesLimit,
 } from './model/selectors/getArticles/getArticles';
 export { ArticleCodeBlockComponent } from './ui/ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 export { ArticleTextBlockComponent } from './ui/ArticleTextBlockComponent/ArticleTextBlockComponent';

@@ -42,7 +42,7 @@ export const AddCommentForm: FC<AddCommentFormProps> = (props) => {
         [dispatch],
     );
     return (
-        <DynamicModuleLoader reducers={reducers}>
+        <DynamicModuleLoader reducers={reducers} removedAfterUnmount={false}>
             <div className={classNames(cls.AddCommentForm, {}, [className])}>
                 <Input
                     value={text}

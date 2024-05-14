@@ -4,4 +4,7 @@ export {
     ReduxStoreWithManager,
     ThunkExtraArg,
     ThunkConfig,
+    StateSchema,
 } from './config/StateSchema';
+
+export { createReducerManager } from './config/reducerManager';

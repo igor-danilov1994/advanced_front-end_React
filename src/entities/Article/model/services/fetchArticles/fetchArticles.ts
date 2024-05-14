@@ -1,7 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { ThunkConfig } from 'app/provider/StoreProvider';
-import { Article } from 'entities/Article';
-import { getArticlesLimit } from 'entities/Article/model/selectors/getArticles/getArticles';
+import { Article, getArticlesLimit } from 'entities/Article';
 
 interface FetchArticlesPayload {
   page?: number;
