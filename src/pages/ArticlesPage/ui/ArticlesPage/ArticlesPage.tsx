@@ -11,8 +11,8 @@ import {
     getArticles,
     getArticlesHasMore,
     getArticlesPage,
-    getArticlesPageInit,
     getArticlesView,
+    initArticlePage,
 } from 'entities/Article';
 import {
     DynamicModuleLoader,
@@ -39,17 +39,13 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
     const view = useSelector(getArticlesView);
     const page = useSelector(getArticlesPage);
     const hasMore = useSelector(getArticlesHasMore);
-    const inited = useSelector(getArticlesPageInit);
 
     const { className } = props;
     const articlesList = articles?.data ?? [];
 
     useEffect(() => {
-        if (inited) {
-            dispatch(articleActions.setInit());
-            dispatch(fetchArticles({ page: 1 }));
-        }
-    }, [inited, dispatch]);
+        dispatch(initArticlePage());
+    }, [dispatch]);
 
     const setChangeView = () => {
         dispatch(articleActions.setView());

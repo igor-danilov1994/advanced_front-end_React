@@ -10,6 +10,7 @@ export {
 } from './model/types/article';
 export { fetchArticles } from './model/services/fetchArticles/fetchArticles';
 export { fetchArticleById } from './model/services/fetchArticleById/fetchArticleById';
+export { initArticlePage } from './model/services/initArticlesPage/initArticlesPage';
 export { articleReducer, articleActions } from './model/slice/articleSlice';
 export {
     articleDetailsSlice,
