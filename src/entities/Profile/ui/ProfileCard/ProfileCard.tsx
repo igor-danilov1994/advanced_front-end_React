@@ -7,7 +7,7 @@ import { Input } from 'shared/ui/Input/Input';
 import { Text, ThemeText } from 'shared/ui/Text/Text';
 import { Loader } from 'widgets/Loader/ui/Loader';
 import { Avatar, AvatarSize } from 'shared/ui/Avatar/Avatar';
-import { Select } from 'shared/ui/Select/Select';
+import { Option, Select } from 'shared/ui/Select/Select';
 import { Currency } from 'shared/const/common';
 import cls from './ProfileCard.module.scss';
 
@@ -41,8 +41,21 @@ export const ProfileCard: FC<ProfileCardProps> = memo((props) => {
         readonly,
     } = props;
 
-    const currencyList: Currency[] = useMemo(
-        () => [Currency.EUR, Currency.RUB, Currency.USD],
+    const currencyList: Option<Currency>[] = useMemo(
+        () => [
+            {
+                value: Currency.EUR,
+                content: 'EUR',
+            },
+            {
+                value: Currency.RUB,
+                content: 'RUB',
+            },
+            {
+                value: Currency.USD,
+                content: 'USD',
+            },
+        ],
         [],
     );
 

@@ -1,4 +1,5 @@
 import { User } from 'entities/User';
+import { SortOrder } from 'shared/types';
 
 export interface ArticleBlocksBase {
   id: string;
@@ -9,6 +10,17 @@ export enum ArticleBlocksType {
   TEXT = 'TEXT',
   CODE = 'CODE',
   IMAGE = 'IMAGE',
+}
+
+export enum ArticleView {
+  BIG = 'BIG',
+  SMALL = 'SMALL',
+}
+
+export enum ArticleSortField {
+  VIEW = 'views',
+  TITLE = 'title',
+  CREATED = 'createdAt',
 }
 
 export interface ArticleBlockText extends ArticleBlocksBase {
@@ -49,22 +61,13 @@ export interface ArticleSchema {
   error?: string;
   isLoading: boolean;
   data?: Article[];
-  // eslint-disable-next-line no-use-before-define
   view: ArticleView;
   page: number;
   limit: number;
   hasMore: boolean;
   _inited: boolean;
-}
-
-export interface Comments {
-  id: string;
-  text: string;
-  articleId: string;
-  userId: string;
-}
-
-export enum ArticleView {
-  BIG = 'BIG',
-  SMALL = 'SMALL',
+  order: SortOrder;
+  sort: ArticleSortField;
+  search: string;
+  type?: string;
 }

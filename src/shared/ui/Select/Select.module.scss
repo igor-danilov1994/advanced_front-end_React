@@ -1,7 +1,12 @@
 .select {
-  background: none;
+  background: var(--primary-color);
   outline: none;
-  border: none;
+  border: 1px solid var(--primary-color);
+  margin-left: 5px;
+}
+
+.wrapper {
+  display: flex;
 }
 
 .option {

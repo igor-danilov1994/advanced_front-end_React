@@ -1,0 +1,13 @@
+.Tabs {
+  display: flex;
+  margin-top: 10px;
+}
+
+.tab {
+  margin-right: 10px;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid var(--primary-color);
+  }
+}

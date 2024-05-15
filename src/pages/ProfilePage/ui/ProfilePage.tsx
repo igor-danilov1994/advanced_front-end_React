@@ -19,7 +19,7 @@ import { Text, ThemeText } from 'shared/ui/Text/Text';
 import { ProfilePageHeader } from 'pages/ProfilePage';
 import { Currency } from 'shared/const/common';
 import { getProfileValidateError } from 'entities/Profile/model/selectors/getProfileValidateError/getProfileValidateError';
-import { getProfileData } from 'entities/Profile/model/selectors/getProfileData/getProfileData';
+import { getProfileForm } from 'entities/Profile/model/selectors/getProfileData/getProfileData';
 import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
 import { getProfileLoading } from 'entities/Profile/model/selectors/getProfileLoading/getProfileLoading';
 import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
@@ -38,7 +38,7 @@ const reducers: ReducersList = {
 
 const ProfilePage: FC<ProfilePageProps> = (props) => {
     const dispatch = useAppDispatch();
-    const profileData = useSelector(getProfileData);
+    const profileData = useSelector(getProfileForm);
     const validateError = useSelector(getProfileValidateError);
     const readonly = useSelector(getProfileReadonly);
     const isLoading = useSelector(getProfileLoading);

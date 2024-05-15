@@ -16,5 +16,5 @@ export const RequireAuth: FC<RequireAuthProps> = memo((props) => {
         return <Navigate to={RoutePath.main} state={{ from: location }} replace />;
     }
 
-    return <div className="page-wrapper">{children}</div>;
+    return <div style={{ width: '100%' }}>{children}</div>;
 });

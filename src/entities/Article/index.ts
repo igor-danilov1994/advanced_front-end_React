@@ -11,6 +11,7 @@ export {
 export { fetchArticles } from './model/services/fetchArticles/fetchArticles';
 export { fetchArticleById } from './model/services/fetchArticleById/fetchArticleById';
 export { initArticlePage } from './model/services/initArticlesPage/initArticlesPage';
+export { fetchArticleList } from './model/services/fetchArticeList/fetchArticeList';
 export { articleReducer, articleActions } from './model/slice/articleSlice';
 export {
     articleDetailsSlice,
@@ -28,6 +29,10 @@ export {
     getArticlesDetailsError,
     getArticlesDetailsLoading,
     getArticlesLimit,
+    getArticlesOrder,
+    getArticlesSort,
+    getArticlesSearch,
+    getArticlesType,
 } from './model/selectors/getArticles/getArticles';
 export { ArticleCodeBlockComponent } from './ui/ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 export { ArticleTextBlockComponent } from './ui/ArticleTextBlockComponent/ArticleTextBlockComponent';

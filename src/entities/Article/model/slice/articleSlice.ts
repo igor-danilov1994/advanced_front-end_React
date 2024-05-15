@@ -1,5 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ArticleSchema, ArticleView, fetchArticles } from 'entities/Article';
+
+import { SortOrder } from 'shared/types';
+import { fetchArticles } from '../services/fetchArticles/fetchArticles';
+import {
+    ArticleSchema,
+    ArticleSortField,
+    ArticleView,
+} from '../../model/types/article';
 
 const initialState: ArticleSchema = {
     isLoading: false,
@@ -10,6 +17,9 @@ const initialState: ArticleSchema = {
     view: ArticleView.BIG,
     limit: 4,
     _inited: false,
+    order: 'asc',
+    search: '',
+    sort: ArticleSortField.VIEW,
 };
 
 export const articleSlice = createSlice({
@@ -19,9 +29,21 @@ export const articleSlice = createSlice({
         setPage: (state, action: PayloadAction<number>) => {
             state.page = action.payload;
         },
+        setOrder: (state, action: PayloadAction<SortOrder>) => {
+            state.order = action.payload;
+        },
+        setSearch: (state, action: PayloadAction<string>) => {
+            state.search = action.payload;
+        },
+        setSort: (state, action: PayloadAction<ArticleSortField>) => {
+            state.sort = action.payload;
+        },
         setInit: (state) => {
-            state.limit = state.view === ArticleView.BIG ? 4 : 9;
+            state.limit = state.view === ArticleView.BIG ? 4 : 6;
             state._inited = true;
+        },
+        setType: (state, action: PayloadAction<string>) => {
+            state.type = action.payload;
         },
         setView: (state) => {
             if (state.view === ArticleView.SMALL) {
@@ -33,14 +55,21 @@ export const articleSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchArticles.pending, (state) => {
+            .addCase(fetchArticles.pending, (state, action) => {
                 state.isLoading = true;
                 state.error = undefined;
+                if (action.meta.arg.replace) {
+                    state.data = [];
+                }
             })
-            .addCase(fetchArticles.fulfilled, (state, action: PayloadAction<any>) => {
-                state.data = [...state.data!, ...action.payload];
-                state.isLoading = false;
-                state.hasMore = action.payload.length > 0;
+            .addCase(fetchArticles.fulfilled, (state, action) => {
+                if (action.meta.arg.replace) {
+                    state.data = action.payload;
+                } else {
+                    state.data = [...state.data!, ...action.payload];
+                    state.isLoading = false;
+                    state.hasMore = action.payload.length >= state.limit;
+                }
             })
             .addCase(fetchArticles.rejected, (state, action) => {
                 state.isLoading = false;

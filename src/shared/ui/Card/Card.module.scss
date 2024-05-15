@@ -3,3 +3,11 @@
   border-radius: 12px;
   background: var(--card-bg);
 }
+
+.normal {
+  border: 1px solid transparent;
+}
+
+.active {
+  border: 1px solid var(--primary-color);
+}

@@ -18,6 +18,19 @@ const Template: ComponentStory<typeof Select> = (args) => <Select {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
-    optional: ['1', '2', '3'],
+    optional: [
+        {
+            value: '1',
+            content: '1',
+        },
+        {
+            value: '2',
+            content: '2',
+        },
+        {
+            value: '3',
+            content: '3',
+        },
+    ],
     currentValue: '2',
 };

@@ -1,16 +1,14 @@
 import React, {
     FC, memo, useCallback, useEffect,
 } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import { useSelector } from 'react-redux';
 import {
-    articleActions,
     articleReducer,
-    fetchArticles,
+    fetchArticleList,
     getArticles,
-    getArticlesHasMore,
-    getArticlesPage,
     getArticlesView,
     initArticlePage,
 } from 'entities/Article';
@@ -21,8 +19,10 @@ import {
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
-import { Button } from 'shared/ui/Button/Button';
 import { Page } from 'widgets/Page/Page';
+
+import { ArticlesPageFilter } from '../../ui/ArticlesPageFilter/ArticlesPageFilter';
+
 import cls from './ArticlesPage.module.scss';
 
 interface ArticlesPageProps {
@@ -34,29 +34,22 @@ const reducers: ReducersList = {
 };
 
 const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
-    const dispatch = useAppDispatch();
     const articles = useSelector(getArticles);
     const view = useSelector(getArticlesView);
-    const page = useSelector(getArticlesPage);
-    const hasMore = useSelector(getArticlesHasMore);
+    const dispatch = useAppDispatch();
+
+    const [params] = useSearchParams();
 
     const { className } = props;
     const articlesList = articles?.data ?? [];
 
     useEffect(() => {
-        dispatch(initArticlePage());
-    }, [dispatch]);
-
-    const setChangeView = () => {
-        dispatch(articleActions.setView());
-    };
+        dispatch(initArticlePage(params));
+    }, [dispatch, params]);
 
     const uploadMoreArticles = useCallback(() => {
-        if (hasMore) {
-            dispatch(articleActions.setPage(page + 1));
-            dispatch(fetchArticles({ page: page + 1 }));
-        }
-    }, [dispatch, page, hasMore]);
+        dispatch(fetchArticleList());
+    }, [dispatch]);
 
     const getSkeleton = useCallback(
         () => (
@@ -80,9 +73,9 @@ const ArticlesPage: FC<ArticlesPageProps> = memo((props) => {
         <DynamicModuleLoader reducers={reducers} removedAfterUnmount={false}>
             <Page onScrollEnd={uploadMoreArticles}>
                 <div className={classNames(cls.ArticlesPage, {}, [className])}>
-                    <Button onClick={setChangeView}>Change view</Button>
-                    <ArticleList articles={articlesList} view={view} />
+                    {articles?.data && <ArticlesPageFilter articles={articles?.data} />}
                 </div>
+                <ArticleList className={cls.list} articles={articlesList} view={view} />
 
                 {articles?.isLoading && getSkeleton()}
             </Page>

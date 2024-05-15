@@ -1,4 +1,6 @@
 import { FC, memo, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
     Article,
@@ -14,11 +16,8 @@ import { Card } from 'shared/ui/Card/Card';
 import { useHover } from 'shared/lib/hooks/useHover/useHover';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { useNavigate } from 'react-router-dom';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './ArticleListItem.module.scss';
-
-// import SchedulerIcon from 'shared/assets/schedulerIcon.svg';
 
 interface ArticleListItemProps {
   className?: string;
