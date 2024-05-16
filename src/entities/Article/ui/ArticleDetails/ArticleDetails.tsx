@@ -1,6 +1,4 @@
-import {
-    FC, memo, useCallback, useEffect,
-} from 'react';
+import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -18,7 +16,6 @@ import {
 
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
-import { Avatar, AvatarSize } from 'shared/ui/Avatar/Avatar';
 import EyeIcon from 'shared/assets/eyeIcon.svg';
 import SchedulerIcon from 'shared/assets/schedulerIcon.svg';
 import { Icon } from 'shared/ui/Icon/Icon';
@@ -27,48 +24,33 @@ import { CommentList } from 'entities/Comment';
 import { AddCommentForm } from 'feature/addNewComment';
 import { addNewComment } from 'feature/addNewComment/model/services/addNewComment';
 import {
-    fetchArticleById,
-    getArticlesDetails,
     getArticlesDetailsError,
     getArticlesDetailsLoading,
 } from 'pages/ArticlesDetailsPage';
-import { fetchComments } from 'entities/Comment/model/services/fetchComments';
 import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
 import { getCommentsLoading } from 'entities/Comment/model/selectors/getComments';
 import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
   className?: string;
-  articleId?: string;
-  article?: Article;
   view?: ArticleView;
+  article: Article;
 }
 
 export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     const { t } = useTranslation();
     const dispatch = useAppDispatch();
-    const articlesDetails = useSelector(getArticlesDetails);
+
     const loading = useSelector(getArticlesDetailsLoading);
     const error = useSelector(getArticlesDetailsError);
-    const {
-        className, articleId, article, view,
-    } = props;
+    const { className, article, view } = props;
     const comments = useSelector(getArticleComments.selectAll);
 
     const isLoadingComment = useSelector(getCommentsLoading);
 
-    const articleData = articlesDetails ?? article;
-
-    useEffect(() => {
-        if (articleId) {
-            dispatch(fetchArticleById(articleId));
-            dispatch(fetchComments(articleId));
-        }
-    }, [dispatch, articleId]);
-
     const onSendTextComment = useCallback(() => {
-        dispatch(addNewComment(articleData?.id));
-    }, [dispatch, articleData?.id]);
+        dispatch(addNewComment(article?.id));
+    }, [dispatch, article?.id]);
 
     const renderBlock = useCallback((block: ArticleBlocks) => {
         switch (block.type) {
@@ -128,27 +110,23 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     return (
         <div className={classNames(cls.ArticleDetails, {}, [className])}>
             <div className={cls.avatarWrapper}>
-                <Avatar
-                    size={AvatarSize.M}
-                    src={articleData?.img}
-                    className={cls.avatar}
-                />
+                <img alt={article.title} src={article.img} className={cls.img} />
             </div>
             <Text
                 size={SizeText.SizeM}
-                title={articleData?.title}
-                text={articleData?.subtitle}
+                title={article?.title}
+                text={article?.subtitle}
             />
             <div className={cls.articleInfo}>
                 <Icon className={cls.icon} Svg={EyeIcon} />
-                <Text title={`${articleData?.views}`} />
+                <Text title={`${article?.views}`} />
             </div>
             <div className={cls.articleInfo}>
                 <Icon className={cls.icon} Svg={SchedulerIcon} />
-                <Text title={`${articleData?.created}`} />
+                <Text title={`${article?.created}`} />
             </div>
 
-            {articleData?.blocks.map(renderBlock)}
+            {article?.blocks.map(renderBlock)}
 
             <CommentList isLoading={isLoadingComment} comments={comments} />
 

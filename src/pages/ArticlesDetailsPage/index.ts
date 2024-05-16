@@ -1,4 +1,5 @@
 export { ArticlesDetailsPageAsync as ArticlesDetailsPage } from './ui/ArticlesDatailsPage/ArticlesDetailsPage.async';
+export { ArticlesDetailsPageHeader } from './ui/ArticlesDetailsPageHeader/ArticlesDetailsPageHeader';
 export { ArticleDetailsSchema } from './model/types/articleDetailsSchema';
 export { ArticleDetailsPageRecommendedSchema } from './model/types/articleDetailsPageRecommendedSchema';
 export {
@@ -11,8 +12,9 @@ export {
     articleDetailsReducer,
 } from './model/slice/articleDetailsSlice';
 
-export { fetchArticleById } from './model/services/fetchArticleById/fetchArticleById';
 export {
     getArticleRecommendationLoading,
     getArticleRecommendationError,
 } from './model/selectors/recommendation';
+
+export { fetchArticleById } from './model/services';

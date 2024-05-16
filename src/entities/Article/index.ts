@@ -6,6 +6,7 @@ export {
     ArticleBlockImage,
     ArticleBlocksType,
     ArticleView,
+    ArticleSortField,
 } from './model/types/article';
 export { fetchArticles } from './model/services/fetchArticles/fetchArticles';
 export { initArticlePage } from './model/services/initArticlesPage/initArticlesPage';
@@ -28,4 +29,5 @@ export {
 export { ArticleCodeBlockComponent } from './ui/ArticleCodeBlockComponent/ArticleCodeBlockComponent';
 export { ArticleTextBlockComponent } from './ui/ArticleTextBlockComponent/ArticleTextBlockComponent';
 export { ArticleImageBlockComponent } from './ui/ArticleImageBlockComponent/ArticleImageBlockComponent';
+export { ArticleList } from './ui/ArticleList/ArticleList';
 export { ArticleDetails } from './ui/ArticleDetails/ArticleDetails';

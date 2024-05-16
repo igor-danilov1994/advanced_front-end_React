@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux';
 import React, {
     FC, memo, useCallback, useMemo,
 } from 'react';
@@ -8,6 +9,7 @@ import { ArticleSortSelector } from 'pages/ArticlesPage';
 import {
     Article,
     articleActions,
+    ArticleSortField,
     fetchArticles,
     getArticlesOrder,
     getArticlesSearch,
@@ -15,10 +17,7 @@ import {
     getArticlesType,
 } from 'entities/Article';
 import { SortOrder } from 'shared/types';
-import { ArticleSortField } from 'entities/Article/model/types/article';
-import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
-import { useSelector } from 'react-redux';
-import { useDebounce } from 'shared/lib/hooks/useDebounce/useDebounce';
+import { useAppDispatch, useDebounce } from 'shared/lib/hooks';
 import { Option } from 'shared/ui/Select/Select';
 import { Tabs } from 'shared/ui/Tabs/Tabs';
 

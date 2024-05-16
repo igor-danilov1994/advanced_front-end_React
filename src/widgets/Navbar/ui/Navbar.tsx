@@ -1,17 +1,20 @@
 import {
     FC, memo, useCallback, useState,
 } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
-import { useTranslation } from 'react-i18next';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { LoginModal } from 'feature/AuthByUsername';
-import { useDispatch, useSelector } from 'react-redux';
 import { getAuthData, userActions } from 'entities/User';
+import { Text, ThemeText } from 'shared/ui/Text/Text';
+import { AppLink, AppLinkTheme } from 'shared/ui/AppLink/AppLink';
+import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
-    className?: string;
+  className?: string;
 }
 
 export const Navbar: FC<NavbarProps> = memo(({ className }) => {
@@ -32,14 +35,37 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
         dispatch(userActions.logout());
     };
 
+    if (!user) {
+        return (
+            <header className={classNames(cls.Navbar, {}, [className])}>
+                <Button
+                    theme={ButtonTheme.CLEAR_INVERTED}
+                    className={cls.links}
+                    onClick={onShowModal}
+                >
+                    {t('Войти')}
+                </Button>
+                {isOpen && <LoginModal isOpen={isOpen} onClose={onCloseModal} />}
+            </header>
+        );
+    }
+
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
+            <Text title="Articles project" theme={ThemeText.INVERTED} />
+            <AppLink
+                className={cls.edit}
+                to={RoutePath.article_create}
+                theme={AppLinkTheme.SECONDARY}
+            >
+                Создать статью
+            </AppLink>
             <Button
                 theme={ButtonTheme.CLEAR_INVERTED}
                 className={cls.links}
-                onClick={user ? logoutHandler : onShowModal}
+                onClick={logoutHandler}
             >
-                {t(user ? 'Выйти' : 'Войти')}
+                {t('Выйти')}
             </Button>
             {isOpen && <LoginModal isOpen={isOpen} onClose={onCloseModal} />}
         </div>

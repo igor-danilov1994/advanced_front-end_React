@@ -1,30 +1,29 @@
-import {
-    FC, memo, useCallback, useEffect,
-} from 'react';
+import { FC, memo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
     DynamicModuleLoader,
     ReducersList,
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
-import { commentsReducer } from 'entities/Comment';
-import { Button, ButtonTheme } from 'shared/ui/Button/Button';
-import { RoutePath } from 'shared/config/routeConfig/routeConfig';
+import { commentsReducer, fetchComments } from 'entities/Comment';
 import { Page } from 'widgets/Page/Page';
 import { Text } from 'shared/ui/Text/Text';
 import {
     articleDetailsReducer,
+    ArticlesDetailsPageHeader,
+    fetchArticleById,
     getArticleRecommendationError,
     getArticleRecommendationLoading,
+    getArticlesDetails,
 } from 'pages/ArticlesDetailsPage';
 
-import { ArticleDetails, ArticleView } from 'entities/Article';
-import { useSelector } from 'react-redux';
-import { ArticleList } from 'entities/Article/ui/ArticleList/ArticleList';
-import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
-import { fetchArticleRecommended } from '../../model/services/fetchArticleRecommended/fetchArticleRecommended';
+import { ArticleDetails, ArticleList, ArticleView } from 'entities/Article';
+import { useAppDispatch } from 'shared/lib/hooks';
+import { getAuthData } from 'entities/User';
+import { fetchArticleRecommended } from '../../model/services';
 import {
     articleDetailsPageRecommendedReducer,
     getArticleRecommendation,
@@ -44,29 +43,33 @@ const reducers: ReducersList = {
 const ArticlesDetailsPage: FC<ArticlesDetailsPageProps> = memo((props) => {
     const { t } = useTranslation();
     const { className } = props;
-    const { id } = useParams<{ id: string }>();
-    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const recommendation = useSelector(getArticleRecommendation.selectAll);
     const isLoading = useSelector(getArticleRecommendationLoading);
     const error = useSelector(getArticleRecommendationError);
+    const article = useSelector(getArticlesDetails);
+    const user = useSelector(getAuthData);
+    const { id } = useParams<{ id: string }>();
+    const isOwner = user?.id === article?.user.id;
+
+    useEffect(() => {
+        if (id) {
+            dispatch(fetchArticleById(id));
+            dispatch(fetchComments(id));
+        }
+    }, [dispatch, id]);
 
     useEffect(() => {
         dispatch(fetchArticleRecommended());
     }, [dispatch]);
 
-    const onBackToList = useCallback(() => {
-        navigate(RoutePath.articles);
-    }, [navigate]);
-
     return (
         <DynamicModuleLoader reducers={reducers} removedAfterUnmount={false}>
             <Page>
-                <Button theme={ButtonTheme.OUTLINE} onClick={onBackToList}>
-                    Назад к списку
-                </Button>
+                <ArticlesDetailsPageHeader isOwner={isOwner} articleId={article?.id} />
+
                 <div className={classNames(cls.ArticlesDatailsPage, {}, [className])}>
-                    {id && <ArticleDetails articleId={id} />}
+                    {article && <ArticleDetails article={article} />}
                 </div>
                 <Text className={cls.recommendedTitle} title="Рекомендуем" />
                 <ArticleList
@@ -74,7 +77,7 @@ const ArticlesDetailsPage: FC<ArticlesDetailsPageProps> = memo((props) => {
                     isLoading={isLoading}
                     view={ArticleView.SMALL}
                     className={cls.recommended}
-                    onNewTab="_blank"
+                    // onNewTab="_blank"
                 />
             </Page>
         </DynamicModuleLoader>
