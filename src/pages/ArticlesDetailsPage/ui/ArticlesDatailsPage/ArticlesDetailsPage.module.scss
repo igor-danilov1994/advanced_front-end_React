@@ -1,3 +1,13 @@
 .ArticlesDetailsPage {
   color: red;
 }
+
+.recommendedTitle {
+  margin: 10px 0;
+}
+
+.recommended {
+  flex-wrap: nowrap;
+  overflow-y: hidden;
+  overflow-x: auto;
+}

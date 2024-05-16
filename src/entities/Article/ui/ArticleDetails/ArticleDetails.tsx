@@ -32,6 +32,9 @@ import {
     getArticlesDetailsError,
     getArticlesDetailsLoading,
 } from 'pages/ArticlesDetailsPage';
+import { fetchComments } from 'entities/Comment/model/services/fetchComments';
+import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
+import { getCommentsLoading } from 'entities/Comment/model/selectors/getComments';
 import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {
@@ -50,11 +53,16 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
     const {
         className, articleId, article, view,
     } = props;
+    const comments = useSelector(getArticleComments.selectAll);
+
+    const isLoadingComment = useSelector(getCommentsLoading);
+
     const articleData = articlesDetails ?? article;
 
     useEffect(() => {
         if (articleId) {
             dispatch(fetchArticleById(articleId));
+            dispatch(fetchComments(articleId));
         }
     }, [dispatch, articleId]);
 
@@ -142,7 +150,7 @@ export const ArticleDetails: FC<ArticleDetailsProps> = memo((props) => {
 
             {articleData?.blocks.map(renderBlock)}
 
-            <CommentList articleId={articleData?.id} />
+            <CommentList isLoading={isLoadingComment} comments={comments} />
 
             <Text title="Ваш коментарий" />
 

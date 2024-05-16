@@ -1,29 +1,22 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, memo } from 'react';
 import { classNames } from 'shared/lib/classNames/classNames';
 import { CommentCard } from 'entities/Comment/ui/CommentCard/CommentCard';
-import { fetchComments } from 'entities/Comment/model/services/fetchComments';
-import { useSelector } from 'react-redux';
-import { getArticleComments } from 'entities/Comment/model/slice/commentsSlice';
-import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
-import { getCommentsLoading } from 'entities/Comment/model/selectors/getComments';
+import { Text } from 'shared/ui/Text/Text';
+import { Comment } from '../../model/types/comment';
 import cls from './CommentList.module.scss';
 
 interface CommentListProps {
   className?: string;
-  articleId?: string;
+  isLoading?: boolean;
+  comments: Comment[];
 }
 
 export const CommentList: FC<CommentListProps> = memo((props) => {
-    const { className, articleId } = props;
-    const comments = useSelector(getArticleComments.selectAll);
-    const isLoading = useSelector(getCommentsLoading);
-    const dispatch = useAppDispatch();
+    const { className, isLoading, comments } = props;
 
-    useEffect(() => {
-        if (articleId) {
-            dispatch(fetchComments(articleId));
-        }
-    }, [dispatch, articleId]);
+    if (!comments.length) {
+        return <Text title="Комментариев нет" />;
+    }
 
     return (
         <div className={classNames(cls.CommentCard, {}, [className])}>

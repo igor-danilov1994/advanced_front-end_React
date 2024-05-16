@@ -1,5 +1,4 @@
-import { FC, memo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { FC, HTMLAttributeAnchorTarget, memo } from 'react';
 
 import { classNames } from 'shared/lib/classNames/classNames';
 import {
@@ -16,23 +15,27 @@ import { Card } from 'shared/ui/Card/Card';
 import { useHover } from 'shared/lib/hooks/useHover/useHover';
 import { Avatar } from 'shared/ui/Avatar/Avatar';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
+import { AppLink } from 'shared/ui/AppLink/AppLink';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './ArticleListItem.module.scss';
 
 interface ArticleListItemProps {
   className?: string;
+  onNewTab?: HTMLAttributeAnchorTarget;
   article: Article;
   view: ArticleView;
 }
 
 export const ArticleListItem: FC<ArticleListItemProps> = memo((props) => {
-    const { className, article, view } = props;
+    const {
+        className, article, view, onNewTab,
+    } = props;
     const [isHover, bindHover] = useHover();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const onOpenArticle = useCallback(() => {
-        navigate(`${RoutePath.articles_details}${article.id}`);
-    }, [article.id, navigate]);
+    // const onOpenArticle = useCallback(() => {
+    //     navigate();
+    // }, [article.id, navigate]);
 
     if (view === ArticleView.BIG) {
         const textBlock = article.blocks.find(
@@ -43,7 +46,6 @@ export const ArticleListItem: FC<ArticleListItemProps> = memo((props) => {
         // BIG ARTICLE
             <div
                 className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
-                onClick={onOpenArticle}
             >
                 <Card className={cls.card}>
                     <div className={cls.header}>
@@ -63,9 +65,9 @@ export const ArticleListItem: FC<ArticleListItemProps> = memo((props) => {
                     )}
 
                     <div className={cls.footer}>
-                        <Button theme={ButtonTheme.OUTLINE} onClick={onOpenArticle}>
-                            Читать далее...
-                        </Button>
+                        <AppLink to={`${RoutePath.articles_details}${article.id}`}>
+                            <Button theme={ButtonTheme.OUTLINE}>Читать далее...</Button>
+                        </AppLink>
                         <Icon Svg={EyeIcon} className={cls.icon} />
                         <Text title={`${article.views}`} className={cls.views} />
                     </div>
@@ -76,9 +78,10 @@ export const ArticleListItem: FC<ArticleListItemProps> = memo((props) => {
 
     return (
     // SMALL ARTICLE
-        <div
+        <AppLink
+            to={`${RoutePath.articles_details}${article.id}`}
+            target={onNewTab}
             {...bindHover}
-            onClick={onOpenArticle}
             className={classNames(cls.ArticleListItem, {}, [className, cls[view]])}
         >
             <Card className={cls.card}>
@@ -94,6 +97,6 @@ export const ArticleListItem: FC<ArticleListItemProps> = memo((props) => {
                 </div>
                 <Text title={article.title} className={cls.title} />
             </Card>
-        </div>
+        </AppLink>
     );
 });
