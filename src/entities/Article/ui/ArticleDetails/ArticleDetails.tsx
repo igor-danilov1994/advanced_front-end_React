@@ -14,11 +14,8 @@ import {
     ArticleImageBlockComponent,
     ArticleTextBlockComponent,
     ArticleView,
-    fetchArticleById,
-    getArticlesDetails,
-    getArticlesDetailsError,
-    getArticlesDetailsLoading,
 } from 'entities/Article';
+
 import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useAppDispatch';
 import { Skeleton } from 'shared/ui/Skeleton/Skeleton';
 import { Avatar, AvatarSize } from 'shared/ui/Avatar/Avatar';
@@ -29,6 +26,12 @@ import { CommentList } from 'entities/Comment';
 
 import { AddCommentForm } from 'feature/addNewComment';
 import { addNewComment } from 'feature/addNewComment/model/services/addNewComment';
+import {
+    fetchArticleById,
+    getArticlesDetails,
+    getArticlesDetailsError,
+    getArticlesDetailsLoading,
+} from 'pages/ArticlesDetailsPage';
 import cls from './ArticleDetails.module.scss';
 
 interface ArticleDetailsProps {

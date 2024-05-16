@@ -13,6 +13,3 @@ export const getArticlesSearch = (state: StateSchema) => state?.articles?.search
 export const getArticlesType = (state: StateSchema) => state?.articles?.type ?? 'ALL';
 
 export const getArticlesHasMore = (state: StateSchema) => state.articles?.hasMore;
-export const getArticlesDetailsError = (state: StateSchema) => state.articlesDetails?.error;
-export const getArticlesDetailsLoading = (state: StateSchema) => state.articlesDetails?.isLoading;
-export const getArticlesDetails = (state: StateSchema) => state?.articlesDetails?.data;

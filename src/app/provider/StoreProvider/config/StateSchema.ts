@@ -8,10 +8,11 @@ import {
 } from '@reduxjs/toolkit';
 import { ProfileSchema } from 'entities/Profile';
 import { AxiosInstance } from 'axios';
-import { ArticleDetailsSchema, ArticleSchema } from 'entities/Article';
+import { ArticleSchema } from 'entities/Article';
 import { CommentsSchema } from 'entities/Comment/model/types/comment';
 import { AddNewCommentsFormSchema } from 'feature/addNewComment';
 import { UiScrollSchema } from 'feature/UiScroll';
+import { ArticleDetailsSchema } from 'pages/ArticlesDetailsPage';
 
 export interface StateSchema {
   user: UserSchema;

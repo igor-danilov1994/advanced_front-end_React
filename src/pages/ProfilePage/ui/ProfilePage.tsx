@@ -9,6 +9,11 @@ import {
 } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
 import {
     fetchProfileData,
+    getProfileError,
+    getProfileForm,
+    getProfileLoading,
+    getProfileReadonly,
+    getProfileValidateError,
     profileActions,
     ProfileCard,
     profileReducer,
@@ -18,11 +23,6 @@ import { Text, ThemeText } from 'shared/ui/Text/Text';
 
 import { ProfilePageHeader } from 'pages/ProfilePage';
 import { Currency } from 'shared/const/common';
-import { getProfileValidateError } from 'entities/Profile/model/selectors/getProfileValidateError/getProfileValidateError';
-import { getProfileForm } from 'entities/Profile/model/selectors/getProfileData/getProfileData';
-import { getProfileReadonly } from 'entities/Profile/model/selectors/getProfileReadonly/getProfileReadonly';
-import { getProfileLoading } from 'entities/Profile/model/selectors/getProfileLoading/getProfileLoading';
-import { getProfileError } from 'entities/Profile/model/selectors/getProfileError/getProfileError';
 import { User } from 'entities/User';
 import { USER_LOCALSTORAGE_KEY } from 'shared/const/localstorage';
 import { Page } from 'widgets/Page/Page';

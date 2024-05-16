@@ -2,7 +2,7 @@ import { FC, memo, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { classNames } from 'shared/lib/classNames/classNames';
-import { ArticleDetails, articleDetailsReducer } from 'entities/Article';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import {
     DynamicModuleLoader,
@@ -12,6 +12,9 @@ import { commentsReducer } from 'entities/Comment';
 import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import { Page } from 'widgets/Page/Page';
+import { articleDetailsReducer } from 'pages/ArticlesDetailsPage';
+
+import { ArticleDetails } from 'entities/Article';
 import cls from './ArticlesDetailsPage.module.scss';
 
 interface ArticlesDetailsPageProps {
