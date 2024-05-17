@@ -24,9 +24,24 @@ import { Tabs } from 'shared/ui/Tabs/Tabs';
 import cls from './ArticlesPageFilter.module.scss';
 
 interface ArticlesPageFilterProps {
-  className?: string;
-  articles: Article[];
+    className?: string;
+    articles: Article[];
 }
+
+const filterUniqueTitleTab = (articles: Article[]) => {
+    const uniqueValues = new Set<string>();
+
+    return articles.reduce((acc: Option<string>[], itm) => {
+        if (!uniqueValues.has(itm.type[0])) {
+            uniqueValues.add(itm.type[0]);
+            acc.push({
+                value: itm.type[0],
+                content: itm.type[0],
+            });
+        }
+        return acc;
+    }, []);
+};
 
 export const ArticlesPageFilter: FC<ArticlesPageFilterProps> = memo((props) => {
     const { className, articles } = props;
@@ -36,19 +51,7 @@ export const ArticlesPageFilter: FC<ArticlesPageFilterProps> = memo((props) => {
     const searchValue = useSelector(getArticlesSearch);
     const tabValue = useSelector(getArticlesType);
 
-    const tabs: Option<string>[] = useMemo(() => {
-        const uniqueValues = new Set<string>();
-        return articles.reduce((acc: Option<string>[], itm) => {
-            if (!uniqueValues.has(itm.type[0])) {
-                uniqueValues.add(itm.type[0]);
-                acc.push({
-                    value: itm.type[0],
-                    content: itm.type[0],
-                });
-            }
-            return acc;
-        }, []);
-    }, [articles]);
+    const tabs: Option<string>[] = useMemo(() => filterUniqueTitleTab(articles), [articles]);
 
     const fetchData = useCallback(() => {
         dispatch(fetchArticles({ replace: true }));

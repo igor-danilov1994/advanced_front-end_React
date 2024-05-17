@@ -5,7 +5,7 @@ import MainPageIcon from 'shared/assets/main_page_icon.svg';
 import AboutPageIcon from 'shared/assets/about_page_icon.svg';
 import ProfileIcon from 'shared/assets/profile_icon.svg';
 import ArticlesIcon from 'shared/assets/articles.svg';
-import { SidebarItemsType } from '../types/sidebarTypes';
+import { SidebarItemsType } from 'widgets/Sidebar';
 
 export const getSidebarItem = createSelector(getAuthData, (userData) => {
     const sidebarItemsList: SidebarItemsType[] = [
@@ -19,12 +19,6 @@ export const getSidebarItem = createSelector(getAuthData, (userData) => {
             text: 'О нас',
             Icon: AboutPageIcon,
         },
-        {
-            path: RoutePath.articles_details,
-            text: 'Статья',
-            Icon: ArticlesIcon,
-            authOnly: true,
-        },
     ];
 
     if (userData) {
@@ -37,7 +31,7 @@ export const getSidebarItem = createSelector(getAuthData, (userData) => {
             },
             {
                 path: RoutePath.articles,
-                text: 'Статьи ',
+                text: 'Статьи',
                 Icon: ArticlesIcon,
                 authOnly: true,
             },

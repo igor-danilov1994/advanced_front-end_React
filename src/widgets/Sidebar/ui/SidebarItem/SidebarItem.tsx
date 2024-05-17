@@ -8,8 +8,8 @@ import { SidebarItemsType } from 'widgets/Sidebar';
 import cls from './SidebarItem.module.scss';
 
 interface SidebarItemProps {
-  item?: SidebarItemsType;
-  collapsed: boolean;
+    item?: SidebarItemsType;
+    collapsed: boolean;
 }
 
 export const SidebarItem: FC<SidebarItemProps> = memo((props) => {
@@ -24,9 +24,11 @@ export const SidebarItem: FC<SidebarItemProps> = memo((props) => {
             to={item?.path ?? ''}
         >
             {Icon && <Icon className={cls.icon} />}
-            <span className={classNames(cls.main, {}, [cls.link])}>
-                {t(item?.text ?? '')}
-            </span>
+            {item?.text && (
+                <span className={classNames(cls.main, {}, [cls.link])}>
+                    {t(item.text)}
+                </span>
+            )}
         </AppLink>
     );
 });

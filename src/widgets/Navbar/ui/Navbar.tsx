@@ -14,7 +14,7 @@ import { RoutePath } from 'shared/config/routeConfig/routeConfig';
 import cls from './Navbar.module.scss';
 
 interface NavbarProps {
-  className?: string;
+    className?: string;
 }
 
 export const Navbar: FC<NavbarProps> = memo(({ className }) => {
@@ -52,13 +52,13 @@ export const Navbar: FC<NavbarProps> = memo(({ className }) => {
 
     return (
         <div className={classNames(cls.Navbar, {}, [className])}>
-            <Text title="Articles project" theme={ThemeText.INVERTED} />
+            <Text title={t('Проект статей')} theme={ThemeText.INVERTED} />
             <AppLink
                 className={cls.edit}
                 to={RoutePath.article_create}
                 theme={AppLinkTheme.SECONDARY}
             >
-                Создать статью
+                {t('Создать статью')}
             </AppLink>
             <Button
                 theme={ButtonTheme.CLEAR_INVERTED}
